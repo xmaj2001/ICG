@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import { SidebarTrigger } from "@/components/ui/sidebar"
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export function SiteHeader({ title = "Dashboard" }: { title?: string }) {
   return (
@@ -14,5 +14,5 @@ export function SiteHeader({ title = "Dashboard" }: { title?: string }) {
         <h1 className="text-base font-medium">{title}</h1>
       </div>
     </header>
-  )
+  );
 }

@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import { NavDocuments } from "@/components/nav-documents"
-import { NavMain } from "@/components/nav-main"
-import { NavSecondary } from "@/components/nav-secondary"
-import { NavUser } from "@/components/nav-user"
+import { NavDocuments } from "@/components/nav-documents";
+import { NavMain } from "@/components/nav-main";
+import { NavSecondary } from "@/components/nav-secondary";
+import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -14,8 +14,13 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
-import { CarIcon, BarChart3Icon, Settings2Icon, CommandIcon } from "lucide-react"
+} from "@/components/ui/sidebar";
+import {
+  CarIcon,
+  BarChart3Icon,
+  Settings2Icon,
+  CommandIcon,
+} from "lucide-react";
 
 const data = {
   user: {
@@ -27,26 +32,20 @@ const data = {
     {
       title: "Inventário",
       url: "/dashboard",
-      icon: (
-        <CarIcon />
-      ),
+      icon: <CarIcon />,
     },
     {
       title: "Relatórios",
       url: "/dashboard/relatorios",
-      icon: (
-        <BarChart3Icon />
-      ),
+      icon: <BarChart3Icon />,
     },
     {
       title: "Configurações",
       url: "/dashboard/configuracoes",
-      icon: (
-        <Settings2Icon />
-      ),
+      icon: <Settings2Icon />,
     },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -73,5 +72,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavUser user={data.user} />
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

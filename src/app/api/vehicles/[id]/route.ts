@@ -8,14 +8,14 @@ export async function GET(
   try {
     const { id } = await params;
     const vehicle = await VehicleService.getById(id);
-    
+
     if (!vehicle) {
       return NextResponse.json(
         { success: false, message: "Vehicle not found" },
         { status: 404 },
       );
     }
-    
+
     return NextResponse.json({ success: true, data: vehicle, ts: Date.now() });
   } catch (error) {
     console.error("GET vehicle by ID error:", error);
@@ -33,9 +33,9 @@ export async function PUT(
   try {
     const { id } = await params;
     const data = await req.json();
-    
+
     const updatedVehicle = await VehicleService.update(id, data);
-    
+
     if (!updatedVehicle) {
       return NextResponse.json(
         { success: false, error: "Vehicle not found" },
@@ -64,7 +64,7 @@ export async function DELETE(
   try {
     const { id } = await params;
     const deleted = await VehicleService.delete(id);
-    
+
     if (!deleted) {
       return NextResponse.json(
         { success: false, error: "Vehicle not found" },

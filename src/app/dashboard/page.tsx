@@ -18,7 +18,7 @@ export default function DashboardPage() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
-  
+
   // Modal states for delete (Keep delete in modal, edit/create go to pages)
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
@@ -79,13 +79,16 @@ export default function DashboardPage() {
       <div className="flex flex-1 flex-col">
         <div className="flex flex-1 flex-col gap-2">
           <div className="flex flex-col gap-4 p-4 md:gap-6 md:p-6">
-            
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-4">
               <div>
-                <span className="text-gold font-medium text-sm tracking-wider uppercase">Dashboard</span>
-                <h1 className="font-display text-4xl mt-2">Gestão de Veículos</h1>
+                <span className="text-gold font-medium text-sm tracking-wider uppercase">
+                  Dashboard
+                </span>
+                <h1 className="font-display text-4xl mt-2">
+                  Gestão de Veículos
+                </h1>
               </div>
-              <Button 
+              <Button
                 onClick={handleAdd}
                 className="inline-flex items-center gap-2 bg-gold hover:bg-gold/90 text-background px-4 py-2.5 text-sm font-medium transition-colors"
               >
@@ -100,8 +103,8 @@ export default function DashboardPage() {
               <h2 className="font-display text-2xl">Inventário</h2>
               <div className="relative w-full max-w-sm">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input 
-                  placeholder="Pesquisar veículos..." 
+                <Input
+                  placeholder="Pesquisar veículos..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   className="pl-9 bg-surface border-border"
@@ -109,23 +112,26 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <VehicleTable 
-              vehicles={vehicles} 
-              isLoading={isLoading} 
+            <VehicleTable
+              vehicles={vehicles}
+              isLoading={isLoading}
               onEdit={handleEdit}
               onDelete={handleDeleteRequest}
             />
-
           </div>
         </div>
       </div>
 
-      <DeleteDialog 
+      <DeleteDialog
         isOpen={isDeleteDialogOpen}
         onOpenChange={setIsDeleteDialogOpen}
         onConfirm={handleConfirmDelete}
         isDeleting={isDeleting}
-        vehicleName={selectedVehicle ? `${selectedVehicle.brand} ${selectedVehicle.model}` : ""}
+        vehicleName={
+          selectedVehicle
+            ? `${selectedVehicle.brand} ${selectedVehicle.model}`
+            : ""
+        }
       />
     </>
   );

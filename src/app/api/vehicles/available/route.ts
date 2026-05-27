@@ -4,7 +4,7 @@ import { VehicleService } from "@/lib/vehicles/services/vehicle-service";
 export async function GET() {
   try {
     const availableCount = await VehicleService.getAvailableCount();
-    
+
     return NextResponse.json({
       success: true,
       data: availableCount,
@@ -14,7 +14,7 @@ export async function GET() {
     console.error("GET available vehicles count error:", error);
     return NextResponse.json(
       { success: false, error: "Failed to fetch available count" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -14,7 +14,7 @@ export async function GET() {
     console.error("GET stats error:", error);
     return NextResponse.json(
       { success: false, error: "Failed to fetch stats" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

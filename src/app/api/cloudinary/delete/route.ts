@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     if (!publicIds || !Array.isArray(publicIds) || publicIds.length === 0) {
       return NextResponse.json(
         { success: false, error: "Missing publicIds" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -21,10 +21,10 @@ export async function POST(req: NextRequest) {
     }
 
     const timestamp = Math.round(Date.now() / 1000);
-    
+
     // We can delete multiple images using the destroy endpoint sequentially
     // Or use bulk delete Admin API. For simplicity, we'll map over destroy.
-    
+
     const results = await Promise.all(
       publicIds.map(async (publicId) => {
         const paramsToSign = `public_id=${publicId}&timestamp=${timestamp}`;
@@ -44,11 +44,11 @@ export async function POST(req: NextRequest) {
           {
             method: "POST",
             body: formData,
-          }
+          },
         );
 
         return response.json();
-      })
+      }),
     );
 
     return NextResponse.json({
@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
     console.error("Cloudinary delete error:", error);
     return NextResponse.json(
       { success: false, error: "Failed to delete images" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

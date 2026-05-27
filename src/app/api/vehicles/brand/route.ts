@@ -5,16 +5,16 @@ export async function GET() {
   try {
     const brandCountArray = await VehicleService.getBrandCounts();
 
-    return NextResponse.json({ 
-      success: true, 
-      data: brandCountArray, 
-      ts: Date.now() 
+    return NextResponse.json({
+      success: true,
+      data: brandCountArray,
+      ts: Date.now(),
     });
   } catch (error) {
     console.error("GET brand counts error:", error);
     return NextResponse.json(
       { success: false, error: "Failed to fetch brand counts" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

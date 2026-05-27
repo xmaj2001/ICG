@@ -2,8 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { Car, Tag, HardDrive, MessageCircle } from "lucide-react";
-import { getStats, type DashboardStats } from "@/lib/vehicles/use-case/get-stats";
-import { getCloudinaryUsage, type CloudinaryUsage } from "@/lib/vehicles/use-case/get-cloudinary-usage";
+import {
+  getStats,
+  type DashboardStats,
+} from "@/lib/vehicles/use-case/get-stats";
+import {
+  getCloudinaryUsage,
+  type CloudinaryUsage,
+} from "@/lib/cloudinary/use-case/get-cloudinary-usage";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Progress } from "@/components/ui/progress";
 
@@ -17,7 +23,7 @@ export function StatsCards() {
       try {
         const [statsRes, cloudRes] = await Promise.all([
           getStats(),
-          getCloudinaryUsage()
+          getCloudinaryUsage(),
         ]);
         if (statsRes.success) setStats(statsRes.data);
         if (cloudRes.success) setCloudUsage(cloudRes.data);
@@ -47,23 +53,31 @@ export function StatsCards() {
       {/* Em Stock */}
       <div className="rounded-xl border border-border bg-surface p-6 shadow-sm">
         <div className="flex flex-row items-center justify-between pb-2">
-          <h3 className="text-sm font-medium text-muted-foreground tracking-tight">Em Stock</h3>
+          <h3 className="text-sm font-medium text-muted-foreground tracking-tight">
+            Em Stock
+          </h3>
           <Car className="h-4 w-4 text-muted-foreground" />
         </div>
         <div>
           <div className="text-2xl font-bold font-display">{stats.inStock}</div>
-          <p className="text-xs text-muted-foreground mt-1 text-whatsapp">Disponíveis para venda</p>
+          <p className="text-xs text-muted-foreground mt-1 text-whatsapp">
+            Disponíveis para venda
+          </p>
         </div>
       </div>
 
       {/* Vendidos */}
       <div className="rounded-xl border border-border bg-surface p-6 shadow-sm">
         <div className="flex flex-row items-center justify-between pb-2">
-          <h3 className="text-sm font-medium text-muted-foreground tracking-tight">Vendidos</h3>
+          <h3 className="text-sm font-medium text-muted-foreground tracking-tight">
+            Vendidos
+          </h3>
           <Tag className="h-4 w-4 text-muted-foreground" />
         </div>
         <div>
-          <div className="text-2xl font-bold font-display">{stats.soldThisMonth}</div>
+          <div className="text-2xl font-bold font-display">
+            {stats.soldThisMonth}
+          </div>
           <p className="text-xs text-muted-foreground mt-1">Este mês</p>
         </div>
       </div>
@@ -71,25 +85,35 @@ export function StatsCards() {
       {/* Cloudinary */}
       <div className="rounded-xl border border-border bg-surface p-6 shadow-sm">
         <div className="flex flex-row items-center justify-between pb-2">
-          <h3 className="text-sm font-medium text-muted-foreground tracking-tight">Armazenamento Cloudinary</h3>
+          <h3 className="text-sm font-medium text-muted-foreground tracking-tight">
+            Armazenamento Cloudinary
+          </h3>
           <HardDrive className="h-4 w-4 text-muted-foreground" />
         </div>
         <div>
-          <div className="text-2xl font-bold font-display">{cloudUsage.used} {cloudUsage.unit}</div>
+          <div className="text-2xl font-bold font-display">
+            {cloudUsage.used} {cloudUsage.unit}
+          </div>
           <Progress value={cloudPercentage} className="h-2 mt-3" />
-          <p className="text-xs text-muted-foreground mt-2 text-right">de {cloudUsage.limit} {cloudUsage.unit}</p>
+          <p className="text-xs text-muted-foreground mt-2 text-right">
+            de {cloudUsage.limit} {cloudUsage.unit}
+          </p>
         </div>
       </div>
 
       {/* Leads / Total */}
       <div className="rounded-xl border border-border bg-surface p-6 shadow-sm">
         <div className="flex flex-row items-center justify-between pb-2">
-          <h3 className="text-sm font-medium text-muted-foreground tracking-tight">Leads WhatsApp</h3>
+          <h3 className="text-sm font-medium text-muted-foreground tracking-tight">
+            Leads WhatsApp
+          </h3>
           <MessageCircle className="h-4 w-4 text-muted-foreground" />
         </div>
         <div>
           <div className="text-2xl font-bold font-display">+124</div>
-          <p className="text-xs text-muted-foreground mt-1 text-whatsapp">+14% vs último mês</p>
+          <p className="text-xs text-muted-foreground mt-1 text-whatsapp">
+            +14% vs último mês
+          </p>
         </div>
       </div>
     </div>

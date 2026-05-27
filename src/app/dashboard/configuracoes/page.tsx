@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { SiteHeader } from "@/components/site-header";
-import { getSettings, updateSettings } from "@/lib/vehicles/use-case/settings";
+import { getSettings, updateSettings } from "@/lib/settings/use-case/settings";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -51,16 +51,20 @@ export default function ConfiguracoesPage() {
         <div className="flex flex-1 flex-col gap-2 p-4 md:gap-6 md:p-6">
           <div className="mb-4">
             <h1 className="font-display text-4xl">Configurações</h1>
-            <p className="mt-2 text-sm text-muted-foreground">Gerir preferências e dados do sistema.</p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Gerir preferências e dados do sistema.
+            </p>
           </div>
-          
+
           <div className="max-w-2xl">
             <div className="rounded-xl border border-border bg-surface overflow-hidden shadow-sm">
               <div className="p-6 border-b border-border">
                 <h2 className="font-display text-xl">Contacto e Integrações</h2>
-                <p className="text-sm text-muted-foreground mt-1">Configurações para as chamadas de acção públicas.</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Configurações para as chamadas de acção públicas.
+                </p>
               </div>
-              
+
               <div className="p-6">
                 <form onSubmit={handleSave} className="space-y-6">
                   <div className="space-y-2">
@@ -81,21 +85,27 @@ export default function ConfiguracoesPage() {
                       </div>
                     </div>
                     <p className="text-xs text-muted-foreground">
-                      O número deve incluir o código do país (sem o sinal de mais). Exemplo: 244923456789.
-                      Este número receberá todas as mensagens de interesse nos veículos.
+                      O número deve incluir o código do país (sem o sinal de
+                      mais). Exemplo: 244923456789. Este número receberá todas
+                      as mensagens de interesse nos veículos.
                     </p>
                   </div>
 
                   <div className="pt-4 border-t border-border flex items-center gap-4">
-                    <Button 
-                      type="submit" 
+                    <Button
+                      type="submit"
                       disabled={isLoading || isSaving || !whatsappNumber}
                       className="bg-gold hover:bg-gold/90 text-background px-6"
                     >
                       {isSaving ? (
-                        <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Guardando...</>
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />{" "}
+                          Guardando...
+                        </>
                       ) : (
-                        <><Save className="mr-2 h-4 w-4" /> Guardar Alterações</>
+                        <>
+                          <Save className="mr-2 h-4 w-4" /> Guardar Alterações
+                        </>
                       )}
                     </Button>
                   </div>

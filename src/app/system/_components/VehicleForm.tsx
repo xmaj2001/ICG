@@ -7,16 +7,19 @@ import { Upload, X, Loader2, ArrowLeft } from "lucide-react";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { VehicleFormSchema, type VehicleFormValues } from "@/lib/schema";
-import { Fuel, Transmission, Category, Status, Badge, type Vehicle } from "@/lib/vehicles/type";
+import {
+  Fuel,
+  Transmission,
+  Category,
+  Status,
+  Badge,
+  type Vehicle,
+} from "@/lib/vehicles/type";
 import { useImageUpload } from "@/hooks/use-image-upload";
 import { createVehicle } from "@/lib/vehicles/use-case/create-vehicle";
 import { updateVehicle } from "@/lib/vehicles/use-case/update-vehicle";
 
-import {
-  Field,
-  FieldLabel,
-  FieldError,
-} from "@/components/ui/field";
+import { Field, FieldLabel, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -45,7 +48,7 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
     defaultValues: {
       brand: "",
       model: "",
-      year: new Date().getFullYear(),
+      year: 2024,
       price: 0,
       engineSize: 2.0,
       fuel: Fuel.GASOLINA,
@@ -127,7 +130,8 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
             {isEdit ? "Editar Veículo" : "Adicionar Novo Veículo"}
           </h1>
           <p className="text-muted-foreground mt-1 text-sm">
-            Preencha os detalhes do veículo para ser apresentado na montra principal.
+            Preencha os detalhes do veículo para ser apresentado na montra
+            principal.
           </p>
         </div>
       </div>
@@ -141,7 +145,13 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="brand">Marca</FieldLabel>
-                  <Input id="brand" placeholder="Ex: Toyota" {...field} className="bg-background" aria-invalid={fieldState.invalid} />
+                  <Input
+                    id="brand"
+                    placeholder="Ex: Toyota"
+                    {...field}
+                    className="bg-background"
+                    aria-invalid={fieldState.invalid}
+                  />
                   <FieldError errors={[fieldState.error]} />
                 </Field>
               )}
@@ -152,7 +162,13 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="model">Modelo</FieldLabel>
-                  <Input id="model" placeholder="Ex: Land Cruiser" {...field} className="bg-background" aria-invalid={fieldState.invalid} />
+                  <Input
+                    id="model"
+                    placeholder="Ex: Land Cruiser"
+                    {...field}
+                    className="bg-background"
+                    aria-invalid={fieldState.invalid}
+                  />
                   <FieldError errors={[fieldState.error]} />
                 </Field>
               )}
@@ -163,7 +179,13 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="year">Ano</FieldLabel>
-                  <Input id="year" type="number" {...field} className="bg-background" aria-invalid={fieldState.invalid} />
+                  <Input
+                    id="year"
+                    type="number"
+                    {...field}
+                    className="bg-background"
+                    aria-invalid={fieldState.invalid}
+                  />
                   <FieldError errors={[fieldState.error]} />
                 </Field>
               )}
@@ -174,7 +196,13 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="price">Preço em AOA</FieldLabel>
-                  <Input id="price" type="number" {...field} className="bg-background" aria-invalid={fieldState.invalid} />
+                  <Input
+                    id="price"
+                    type="number"
+                    {...field}
+                    className="bg-background"
+                    aria-invalid={fieldState.invalid}
+                  />
                   <FieldError errors={[fieldState.error]} />
                 </Field>
               )}
@@ -185,7 +213,14 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="engineSize">Cilindrada (L)</FieldLabel>
-                  <Input id="engineSize" type="number" step="0.1" {...field} className="bg-background" aria-invalid={fieldState.invalid} />
+                  <Input
+                    id="engineSize"
+                    type="number"
+                    step="0.1"
+                    {...field}
+                    className="bg-background"
+                    aria-invalid={fieldState.invalid}
+                  />
                   <FieldError errors={[fieldState.error]} />
                 </Field>
               )}
@@ -196,13 +231,21 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel>Combustível</FieldLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <SelectTrigger className="bg-background" aria-invalid={fieldState.invalid}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger
+                      className="bg-background"
+                      aria-invalid={fieldState.invalid}
+                    >
                       <SelectValue placeholder="Selecione..." />
                     </SelectTrigger>
                     <SelectContent>
                       {Object.values(Fuel).map((v) => (
-                        <SelectItem key={v} value={v}>{v}</SelectItem>
+                        <SelectItem key={v} value={v}>
+                          {v}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -216,13 +259,21 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel>Transmissão</FieldLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <SelectTrigger className="bg-background" aria-invalid={fieldState.invalid}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger
+                      className="bg-background"
+                      aria-invalid={fieldState.invalid}
+                    >
                       <SelectValue placeholder="Selecione..." />
                     </SelectTrigger>
                     <SelectContent>
                       {Object.values(Transmission).map((v) => (
-                        <SelectItem key={v} value={v}>{v}</SelectItem>
+                        <SelectItem key={v} value={v}>
+                          {v}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -236,13 +287,21 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel>Categoria</FieldLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <SelectTrigger className="bg-background" aria-invalid={fieldState.invalid}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger
+                      className="bg-background"
+                      aria-invalid={fieldState.invalid}
+                    >
                       <SelectValue placeholder="Selecione..." />
                     </SelectTrigger>
                     <SelectContent>
                       {Object.values(Category).map((v) => (
-                        <SelectItem key={v} value={v}>{v}</SelectItem>
+                        <SelectItem key={v} value={v}>
+                          {v}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -256,13 +315,21 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel>Estado</FieldLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <SelectTrigger className="bg-background" aria-invalid={fieldState.invalid}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger
+                      className="bg-background"
+                      aria-invalid={fieldState.invalid}
+                    >
                       <SelectValue placeholder="Selecione..." />
                     </SelectTrigger>
                     <SelectContent>
                       {Object.values(Status).map((v) => (
-                        <SelectItem key={v} value={v}>{v}</SelectItem>
+                        <SelectItem key={v} value={v}>
+                          {v}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -276,14 +343,24 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel>Destaque (Opcional)</FieldLabel>
-                  <Select onValueChange={(val) => field.onChange(val === "none" ? undefined : val)} defaultValue={field.value || ""}>
-                    <SelectTrigger className="bg-background" aria-invalid={fieldState.invalid}>
+                  <Select
+                    onValueChange={(val) =>
+                      field.onChange(val === "none" ? undefined : val)
+                    }
+                    defaultValue={field.value || ""}
+                  >
+                    <SelectTrigger
+                      className="bg-background"
+                      aria-invalid={fieldState.invalid}
+                    >
                       <SelectValue placeholder="Nenhum" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="none">Nenhum</SelectItem>
                       {Object.values(Badge).map((v) => (
-                        <SelectItem key={v} value={v}>{v}</SelectItem>
+                        <SelectItem key={v} value={v}>
+                          {v}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -299,12 +376,12 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel htmlFor="description">Descrição</FieldLabel>
-                <Textarea 
+                <Textarea
                   id="description"
-                  placeholder="Detalhes adicionais sobre o veículo..." 
-                  className="min-h-[100px] bg-background" 
+                  placeholder="Detalhes adicionais sobre o veículo..."
+                  className="min-h-[100px] bg-background"
                   aria-invalid={fieldState.invalid}
-                  {...field} 
+                  {...field}
                 />
                 <FieldError errors={[fieldState.error]} />
               </Field>
@@ -313,7 +390,7 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
 
           <div className="space-y-4">
             <FieldLabel>Imagens do Veículo</FieldLabel>
-            
+
             <div className="relative flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-gold/50 rounded-xl hover:bg-gold/5 transition-colors">
               <input
                 type="file"
@@ -329,19 +406,29 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
                   <Upload className="w-10 h-10 mb-2" />
                 )}
                 <p className="mb-2 text-sm">
-                  <span className="font-semibold">Clique para fazer upload</span> ou arraste uma imagem
+                  <span className="font-semibold">
+                    Clique para fazer upload
+                  </span>{" "}
+                  ou arraste uma imagem
                 </p>
                 <p className="text-xs opacity-70">JPG, PNG, WEBP (MAX. 10MB)</p>
               </div>
             </div>
-            
+
             {/* Image Previews */}
             {images.length > 0 && (
               <div className="flex gap-4 overflow-x-auto py-2">
                 {images.map((url, i) => (
-                  <div key={i} className="relative w-32 h-32 shrink-0 rounded-lg overflow-hidden group">
+                  <div
+                    key={i}
+                    className="relative w-32 h-32 shrink-0 rounded-lg overflow-hidden group"
+                  >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={url} alt={`Preview ${i}`} className="w-full h-full object-cover" />
+                    <img
+                      src={url}
+                      alt={`Preview ${i}`}
+                      className="w-full h-full object-cover"
+                    />
                     <button
                       type="button"
                       onClick={() => removeImage(i)}
@@ -361,15 +448,14 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
           </div>
 
           <div className="flex justify-end pt-4">
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               className="w-full sm:w-auto bg-gold hover:bg-gold/90 text-background px-8 py-6 text-base font-medium"
               disabled={isSubmitting || isUploading}
             >
               {isSubmitting ? (
                 <>
-                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  A guardar...
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />A guardar...
                 </>
               ) : (
                 "Guardar Veículo"

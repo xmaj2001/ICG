@@ -73,7 +73,10 @@ export function WhatsAppButton({
             </h3>
             <p className="mt-1 text-sm text-gray-500">
               Escaneie o QR Code com seu celular para iniciar a conversa sobre o{" "}
-              <span className="font-medium text-gray-900">{vehicle.brand} {vehicle.model}</span>.
+              <span className="font-medium text-gray-900">
+                {vehicle.brand} {vehicle.model}
+              </span>
+              .
             </p>
             <div className="mt-6 flex justify-center rounded-2xl bg-gray-50 p-6">
               <QRCodeSVG value={link} size={220} level="M" />

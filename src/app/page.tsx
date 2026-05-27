@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
-import { getVehicles } from "@/lib/vehicles/use-case/get-vehicles";
+import { VehicleService } from "@/lib/vehicles/services/vehicle-service";
 import { HeroSection } from "./_components/hero-section";
 import { FeaturedCarousel } from "./_components/featured-carousel";
 import { AboutSection } from "./_components/about-section";
@@ -30,8 +30,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const { data } = await getVehicles();
-  const { vehicles } = data;
+  const data = await VehicleService.getVehicles({}, {});
+  const vehicles = data.vehicles;
   const featured = vehicles.slice(0, 3);
 
   return (

@@ -45,10 +45,18 @@ export function Navbar() {
         </Link>
         <div className="flex items-center gap-2 text-muted-foreground">
           <ModeToggle />
-          <Button variant="ghost" size="icon" className="rounded-full hover:bg-accent hover:text-foreground">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="rounded-full hover:bg-accent hover:text-foreground"
+          >
             <ShoppingBag className="h-5 w-5" />
           </Button>
-          <Button variant="ghost" size="icon" className="hidden md:inline-flex rounded-full hover:bg-accent hover:text-foreground">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hidden md:inline-flex rounded-full hover:bg-accent hover:text-foreground"
+          >
             <User className="h-5 w-5" />
           </Button>
 

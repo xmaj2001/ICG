@@ -10,7 +10,14 @@ import { Input } from "@/components/ui/input";
 import type { Vehicle } from "@/lib/vehicles/type";
 import { deleteVehicle } from "@/lib/vehicles/use-case/delete-vehicle";
 import { useVehicles } from "@/lib/vehicles/hooks";
-import { LayoutGrid, PlusCircle, Rows, Search, Pencil, Trash2 } from "lucide-react";
+import {
+  LayoutGrid,
+  PlusCircle,
+  Rows,
+  Search,
+  Pencil,
+  Trash2,
+} from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { toast } from "sonner";
@@ -34,10 +41,18 @@ function VehiclesDashboard() {
     fuel: searchParams.get("fuel") || undefined,
     transmission: searchParams.get("transmission") || undefined,
     status: searchParams.get("status") || undefined,
-    minYear: searchParams.get("minYear") ? Number(searchParams.get("minYear")) : undefined,
-    maxYear: searchParams.get("maxYear") ? Number(searchParams.get("maxYear")) : undefined,
-    minPrice: searchParams.get("minPrice") ? Number(searchParams.get("minPrice")) : undefined,
-    maxPrice: searchParams.get("maxPrice") ? Number(searchParams.get("maxPrice")) : undefined,
+    minYear: searchParams.get("minYear")
+      ? Number(searchParams.get("minYear"))
+      : undefined,
+    maxYear: searchParams.get("maxYear")
+      ? Number(searchParams.get("maxYear"))
+      : undefined,
+    minPrice: searchParams.get("minPrice")
+      ? Number(searchParams.get("minPrice"))
+      : undefined,
+    maxPrice: searchParams.get("maxPrice")
+      ? Number(searchParams.get("maxPrice"))
+      : undefined,
     limit: 50,
   };
 
@@ -64,7 +79,7 @@ function VehiclesDashboard() {
       router.push(pathname + "?" + sp.toString());
     }, 500);
     return () => clearTimeout(timer);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localSearch]);
 
   const handleEdit = (vehicle: Vehicle) => {
@@ -165,13 +180,20 @@ function VehiclesDashboard() {
               {isLoading ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                   {[1, 2, 3, 4, 5, 6].map((i) => (
-                    <div key={i} className="h-[420px] rounded-sm bg-surface animate-pulse" />
+                    <div
+                      key={i}
+                      className="h-[420px] rounded-sm bg-surface animate-pulse"
+                    />
                   ))}
                 </div>
               ) : vehicles.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-64 text-center border rounded-xl border-dashed">
-                  <p className="text-lg font-medium text-muted-foreground">Nenhum veículo encontrado.</p>
-                  <p className="text-sm text-muted-foreground mt-1">Tente ajustar os filtros ou limpar a pesquisa.</p>
+                  <p className="text-lg font-medium text-muted-foreground">
+                    Nenhum veículo encontrado.
+                  </p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Tente ajustar os filtros ou limpar a pesquisa.
+                  </p>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -217,7 +239,11 @@ function VehiclesDashboard() {
         onOpenChange={setIsDeleteDialogOpen}
         onConfirm={handleConfirmDelete}
         isDeleting={isDeleting}
-        vehicleName={selectedVehicle ? `${selectedVehicle.brand} ${selectedVehicle.model}` : ""}
+        vehicleName={
+          selectedVehicle
+            ? `${selectedVehicle.brand} ${selectedVehicle.model}`
+            : ""
+        }
       />
     </div>
   );
@@ -225,7 +251,15 @@ function VehiclesDashboard() {
 
 export default function VehiclesPage() {
   return (
-    <Suspense fallback={<div className="flex items-center justify-center h-[50vh]"><div className="animate-pulse flex items-center gap-2 text-muted-foreground"><LayoutGrid className="animate-spin h-5 w-5"/> Carregando painel...</div></div>}>
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center h-[50vh]">
+          <div className="animate-pulse flex items-center gap-2 text-muted-foreground">
+            <LayoutGrid className="animate-spin h-5 w-5" /> Carregando painel...
+          </div>
+        </div>
+      }
+    >
       <VehiclesDashboard />
     </Suspense>
   );

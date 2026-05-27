@@ -9,9 +9,9 @@ export async function GET(
     const { id: vehicleId } = await params;
     const { searchParams } = new URL(request.url);
     const limit = searchParams.get("limit");
-    
+
     const limitSize = limit ? parseInt(limit, 10) : 10;
-    
+
     const vehicles = await VehicleService.getRelated(vehicleId, limitSize);
 
     return NextResponse.json({
@@ -23,7 +23,7 @@ export async function GET(
     console.error("GET related vehicles error:", error);
     return NextResponse.json(
       { success: false, error: "Failed to fetch related vehicles" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

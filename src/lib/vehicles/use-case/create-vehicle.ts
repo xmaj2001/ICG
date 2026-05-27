@@ -2,7 +2,7 @@ import type { ApiResponse } from "@/lib/response";
 import type { Vehicle } from "../type";
 
 export const createVehicle = async (
-  data: Partial<Vehicle>
+  data: Partial<Vehicle>,
 ): Promise<ApiResponse<Vehicle>> => {
   const res = await fetch(`/api/vehicles`, {
     method: "POST",
@@ -11,7 +11,7 @@ export const createVehicle = async (
     },
     body: JSON.stringify(data),
   });
-  
+
   if (!res.ok) {
     throw new Error("Failed to create vehicle");
   }

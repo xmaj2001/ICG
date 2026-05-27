@@ -1,17 +1,11 @@
 import type { ApiResponse } from "@/lib/response";
 
-import { VehicleService } from "../services/vehicle-service";
-
 export const getCollectionsBrands = async (): Promise<
   ServiceCollectionFilter[]
 > => {
-  if (typeof window === "undefined") {
-    const data = await VehicleService.getBrandCounts();
-    return generateCollections(data ?? []);
-  }
-
   const res = await fetch(`/api/vehicles/brand`);
-  const result: ApiResponse<{ count: number; brand: string }[]> = await res.json();
+  const result: ApiResponse<{ count: number; brand: string }[]> =
+    await res.json();
 
   return generateCollections(result.data ?? []);
 };
@@ -35,4 +29,3 @@ function generateCollections(collections: { count: number; brand: string }[]) {
 
   return [...baseFilters, ...collectionFilters];
 }
-

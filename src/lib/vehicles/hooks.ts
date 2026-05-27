@@ -42,7 +42,7 @@ export function useVehicles(params: UseVehiclesParams) {
     } finally {
       setIsLoading(false);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(params)]);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ export function useVehicle(id: string) {
 
   useEffect(() => {
     if (!id) return;
-    
+
     const fetchVehicle = async () => {
       setIsLoading(true);
       try {
@@ -79,7 +79,7 @@ export function useVehicle(id: string) {
         setIsLoading(false);
       }
     };
-    
+
     fetchVehicle();
   }, [id]);
 

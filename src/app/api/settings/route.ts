@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { SettingsService } from "@/lib/vehicles/services/settings-service";
+import { SettingsService } from "@/lib/settings/services/settings-service";
 
 export async function GET() {
   try {
@@ -14,7 +14,7 @@ export async function GET() {
     console.error("GET settings error:", error);
     return NextResponse.json(
       { success: false, error: "Failed to fetch settings" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -22,17 +22,17 @@ export async function GET() {
 export async function PUT(req: NextRequest) {
   try {
     const data = await req.json();
-    
+
     // Basic validation
     if (!data.whatsappNumber) {
       return NextResponse.json(
         { success: false, error: "whatsappNumber is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     const updatedSettings = await SettingsService.updateSettings({
-      whatsappNumber: data.whatsappNumber
+      whatsappNumber: data.whatsappNumber,
     });
 
     return NextResponse.json({
@@ -44,7 +44,7 @@ export async function PUT(req: NextRequest) {
     console.error("PUT settings error:", error);
     return NextResponse.json(
       { success: false, error: "Invalid payload or update failed" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 }

@@ -86,7 +86,14 @@ export function DashboardFilters() {
       <ScrollArea className="h-[calc(100vh-200px)] pr-4">
         <Accordion
           type="multiple"
-          defaultValue={["status", "category", "fuel", "transmission", "price", "year"]}
+          defaultValue={[
+            "status",
+            "category",
+            "fuel",
+            "transmission",
+            "price",
+            "year",
+          ]}
           className="w-full"
         >
           {/* Status */}

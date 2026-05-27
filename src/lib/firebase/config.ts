@@ -14,5 +14,6 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase (singleton pattern for Next.js)
-export const firebaseApp = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+export const firebaseApp =
+  getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 export const db = getFirestore(firebaseApp);

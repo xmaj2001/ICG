@@ -9,7 +9,7 @@ import {
 import {
   getCloudinaryUsage,
   type CloudinaryUsage,
-} from "@/lib/vehicles/use-case/get-cloudinary-usage";
+} from "@/lib/cloudinary/use-case/get-cloudinary-usage";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Progress } from "@/components/ui/progress";
 

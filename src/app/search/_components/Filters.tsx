@@ -36,7 +36,6 @@ export function Filters({ brands }: FiltersProps) {
   const [isPending, startTransition] = useTransition();
   const anchor = useComboboxAnchor();
 
-
   /* ─── Read current filter state from URL ─── */
   const currentSearch = searchParams.get("q") ?? "";
   const currentBrands =
@@ -96,8 +95,6 @@ export function Filters({ brands }: FiltersProps) {
     },
     [pushParams],
   );
-
-
 
   /* ─── Clear all filters ─── */
   const clearAll = useCallback(() => {

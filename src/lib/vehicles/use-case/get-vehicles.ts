@@ -15,20 +15,22 @@ interface GetVehiclesInput {
   maxPrice?: number;
 }
 
-import { VehicleService } from "../services/vehicle-service";
-
 export const getVehicles = async (
   input?: GetVehiclesInput,
 ): Promise<GetVehiclesResponse> => {
-  const { cursor, limit, search, category, brand, fuel, transmission, minYear, maxYear, minPrice, maxPrice } = input ?? {};
-  
-  if (typeof window === "undefined") {
-    const data = await VehicleService.getVehicles(
-      { search, category, brand, fuel, transmission, minYear, maxYear, minPrice, maxPrice },
-      { cursorId: cursor, limitSize: limit }
-    );
-    return { data, success: true, ts: Date.now() };
-  }
+  const {
+    cursor,
+    limit,
+    search,
+    category,
+    brand,
+    fuel,
+    transmission,
+    minYear,
+    maxYear,
+    minPrice,
+    maxPrice,
+  } = input ?? {};
 
   const params = new URLSearchParams();
 
@@ -50,9 +52,10 @@ export const getVehicles = async (
   return data;
 };
 
-export interface GetVehiclesResponse extends ApiResponse<{
-  vehicles: Vehicle[];
-  brand: Record<string, number>;
-  availableCount: number;
-  nextCursor?: string | null;
-}> {}
+export interface GetVehiclesResponse
+  extends ApiResponse<{
+    vehicles: Vehicle[];
+    brand: Record<string, number>;
+    availableCount: number;
+    nextCursor?: string | null;
+  }> {}

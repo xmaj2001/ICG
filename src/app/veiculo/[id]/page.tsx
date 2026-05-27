@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
-import { getVehicleDetails } from "@/lib/vehicles/use-case/get-vehicle-dateils";
+import { VehicleService } from "@/lib/vehicles/services/vehicle-service";
 import Link from "next/link";
 import { Gallery } from "../_components/Gallery";
 import { Info } from "../_components/Info";
-import { getVehiclesRelated } from "@/lib/vehicles/use-case/get-vehicles-related";
 import { VehicleCard } from "@/components/vehicles/VehicleCard";
 import { formatPrice } from "@/lib/utils";
 
@@ -18,15 +17,14 @@ export async function generateMetadata({
   params,
 }: VehiclePageProps): Promise<Metadata> {
   const { id } = await params;
-  const response = await getVehicleDetails(id);
+  const v = await VehicleService.getById(id);
 
-  if (!response.success) {
+  if (!v) {
     return {
       title: "Veículo não encontrado",
     };
   }
 
-  const v = response.data;
   const title = `${v.brand} ${v.model} ${v.year}`;
   const price = formatPrice(v.price);
   const description = `${title} — ${v.fuel}, ${v.transmission}, ${v.category}. ${price}. ${v.description.slice(0, 120)}...`;
@@ -61,10 +59,15 @@ export async function generateMetadata({
 }
 
 /* ─── Page Component ─── */
-export default async function VehiclePage({ params }: VehiclePageProps) {
-  const { id } = await params;
-  const response = await getVehicleDetails(id);
-  if (!response.success) {
+async function VehicleContent({
+  paramsPromise,
+}: {
+  paramsPromise: Promise<{ id: string }>;
+}) {
+  const { id } = await paramsPromise;
+  const vehicle = await VehicleService.getById(id);
+
+  if (!vehicle) {
     return (
       <main className="max-w-7xl mx-auto px-6 lg:px-10 py-10">
         <p>Veiculo não encontrado</p>
@@ -72,9 +75,7 @@ export default async function VehiclePage({ params }: VehiclePageProps) {
     );
   }
 
-  const vehicle = response.data;
-
-  const { data: relatedVehicles } = await getVehiclesRelated(id);
+  const relatedVehicles = await VehicleService.getRelated(id);
 
   // JSON-LD structured data for rich snippets
   const jsonLd = {
@@ -162,5 +163,20 @@ export default async function VehiclePage({ params }: VehiclePageProps) {
       </main>
       <Footer />
     </>
+  );
+}
+
+import { Suspense } from "react";
+import Loading from "./loading";
+
+export function generateStaticParams() {
+  return [{ id: "1" }];
+}
+
+export default function VehiclePage({ params }: VehiclePageProps) {
+  return (
+    <Suspense fallback={<Loading />}>
+      <VehicleContent paramsPromise={params} />
+    </Suspense>
   );
 }

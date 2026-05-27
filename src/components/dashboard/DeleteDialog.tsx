@@ -30,13 +30,21 @@ export function DeleteDialog({
     <AlertDialog open={isOpen} onOpenChange={onOpenChange}>
       <AlertDialogContent className="bg-surface border-border">
         <AlertDialogHeader>
-          <AlertDialogTitle className="font-display text-2xl">Eliminar Veículo</AlertDialogTitle>
+          <AlertDialogTitle className="font-display text-2xl">
+            Eliminar Veículo
+          </AlertDialogTitle>
           <AlertDialogDescription className="text-muted-foreground">
-            Tem a certeza que pretende eliminar o veículo <strong className="text-foreground">{vehicleName}</strong>? Esta acção vai remover o veículo e as suas imagens do Cloudinary permanentemente.
+            Tem a certeza que pretende eliminar o veículo{" "}
+            <strong className="text-foreground">{vehicleName}</strong>? Esta
+            acção vai remover o veículo e as suas imagens do Cloudinary
+            permanentemente.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="mt-4">
-          <AlertDialogCancel disabled={isDeleting} className="border-border hover:bg-surface-2 text-foreground">
+          <AlertDialogCancel
+            disabled={isDeleting}
+            className="border-border hover:bg-surface-2 text-foreground"
+          >
             Cancelar
           </AlertDialogCancel>
           <AlertDialogAction

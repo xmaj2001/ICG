@@ -12,7 +12,10 @@ export function useImageUpload() {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
 
-  const upload = async (file: File, folder: string = "icg/vehicles"): Promise<UploadResult | null> => {
+  const upload = async (
+    file: File,
+    folder: string = "icg/vehicles",
+  ): Promise<UploadResult | null> => {
     try {
       setIsUploading(true);
       setError(null);
@@ -97,4 +100,3 @@ export function useImageUpload() {
 
   return { upload, deleteImage, isUploading, isDeleting, progress, error };
 }
-

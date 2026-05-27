@@ -7,12 +7,12 @@ export async function POST(req: NextRequest) {
     const { folder } = await req.json();
 
     const timestamp = Math.round(Date.now() / 1000);
-    const uploadPreset = "icg_vehicles"; // o teu preset
+    const uploadPreset = "icg"; // o teu preset
 
     // Params que vão ser assinados — têm de ser EXACTAMENTE os mesmos
     // que o client vai enviar no upload
     const paramsToSign = [
-      `folder=${folder ?? "/vehicles"}`,
+      `folder=${folder ?? "/vehicles/imagens"}`,
       `timestamp=${timestamp}`,
       `upload_preset=${uploadPreset}`,
     ]
@@ -31,7 +31,8 @@ export async function POST(req: NextRequest) {
       apiKey: process.env.CLOUDINARY_API_KEY,
       cloudName: process.env.CLOUDINARY_CLOUD_NAME,
     });
-  } catch {
+  } catch (error) {
+    console.error("Error generating signature:", error);
     return NextResponse.json(
       { error: "Erro ao gerar assinatura" },
       { status: 500 },

@@ -8,10 +8,11 @@ interface UploadResult {
 
 export function useImageUpload() {
   const [isUploading, setIsUploading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
 
-  const upload = async (file: File): Promise<UploadResult | null> => {
+  const upload = async (file: File, folder: string = "icg/vehicles"): Promise<UploadResult | null> => {
     try {
       setIsUploading(true);
       setError(null);
@@ -21,7 +22,7 @@ export function useImageUpload() {
       const signRes = await fetch("/api/upload/sign", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ folder: "qcenas/services" }),
+        body: JSON.stringify({ folder }),
       });
 
       if (!signRes.ok) throw new Error("Falha ao gerar assinatura");
@@ -33,7 +34,7 @@ export function useImageUpload() {
       const formData = new FormData();
       formData.append("file", file);
       formData.append("upload_preset", uploadPreset);
-      formData.append("folder", "qcenas/services");
+      formData.append("folder", folder);
       formData.append("timestamp", timestamp.toString());
       formData.append("api_key", apiKey);
       formData.append("signature", signature);
@@ -75,5 +76,25 @@ export function useImageUpload() {
     }
   };
 
-  return { upload, isUploading, progress, error };
+  const deleteImage = async (publicId: string): Promise<boolean> => {
+    try {
+      setIsDeleting(true);
+      setError(null);
+      const res = await fetch("/api/cloudinary/delete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ publicIds: [publicId] }),
+      });
+      if (!res.ok) throw new Error("Falha ao eliminar imagem");
+      return true;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Erro ao eliminar imagem");
+      return false;
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  return { upload, deleteImage, isUploading, isDeleting, progress, error };
 }
+

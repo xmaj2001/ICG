@@ -1,67 +1,55 @@
+import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
-import { VehicleCard } from "@/components/vehicles/VehicleCard";
 import { getVehicles } from "@/lib/vehicles/use-case/get-vehicles";
+import { HeroSection } from "./_components/hero-section";
+import { FeaturedCarousel } from "./_components/featured-carousel";
+import { AboutSection } from "./_components/about-section";
+import { ContactSection } from "./_components/contact-section";
+
+export const metadata: Metadata = {
+  title: "Encontre o Carro dos Seus Sonhos em Angola",
+  description:
+    "A ICG (International Car Group) oferece veículos premium em Luanda, Angola. SUVs, Sedans, Pickups — catálogo actualizado, preços competitivos e atendimento via WhatsApp.",
+  keywords: [
+    "carros à venda Angola",
+    "comprar carro Luanda",
+    "ICG Angola",
+    "SUV Angola",
+    "stand automóvel Luanda",
+    "veículos importados Angola",
+  ],
+  openGraph: {
+    title: "ICG - International Car Group | Venda de Carros em Angola",
+    description:
+      "Catálogo premium de veículos em Angola. Encontre SUVs, Sedans, Pickups e mais na ICG.",
+    type: "website",
+    locale: "pt_AO",
+    siteName: "ICG - International Car Group",
+  },
+};
 
 export default async function Home() {
   const { data } = await getVehicles();
-  const { vehicles, brand, availableCount } = data;
+  const { vehicles } = data;
+  const featured = vehicles.slice(0, 3);
 
   return (
     <>
       <Navbar />
-      {/* Hero */}
-      <section className="relative grain-bg border-b border-border">
-        <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-background pointer-events-none" />
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-10 py-24 lg:py-32">
-          <span className="inline-flex items-center label-eyebrow text-gold border border-gold/40 rounded-full px-3 py-1">
-            Luanda · Angola
-          </span>
-          <h1 className="font-display mt-7 text-5xl md:text-7xl lg:text-[88px] leading-[0.95] tracking-tight max-w-4xl">
-            O seu próximo veículo
-            <br />
-            <span className="italic text-gold">começa aqui.</span>
-          </h1>
-          <p className="mt-6 text-base md:text-lg text-muted-foreground max-w-xl">
-            Selecção exclusiva de veículos premium e de luxo, importados e
-            verificados ao detalhe.
-          </p>
+      <main className="mx-auto max-w-[1400px] px-6 py-16">
+        {/* Hero Section */}
+        <HeroSection vehicle={featured[0] ?? undefined} />
 
-          <div className="mt-12 flex flex-wrap gap-3">
-            {[
-              {
-                v: availableCount.toString(),
-                l: "Em stock",
-              },
-              { v: Object.keys(brand).length.toString(), l: "Marcas" },
-              { v: "100%", l: "Verificados" },
-            ].map((s) => (
-              <div
-                key={s.l}
-                className="bg-surface border border-border px-5 py-3.5 flex items-baseline gap-2.5"
-              >
-                <span className="font-display text-2xl text-gold">{s.v}</span>
-                <span className="label-eyebrow text-muted-foreground">
-                  {s.l}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      {/* Vehicle Grid */}
-      <section className="max-w-7xl mx-auto px-6 lg:px-10 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {vehicles.map((v) => (
-            <VehicleCard key={v.id} vehicle={v} />
-          ))}
-        </div>
-        {vehicles.length === 0 && (
-          <div className="text-center text-muted-foreground py-20">
-            Sem veículos nesta categoria.
-          </div>
-        )}
-      </section>
+        {/* Featured carousel */}
+        <FeaturedCarousel vehicles={featured} />
+
+        {/* About */}
+        <AboutSection />
+
+        {/* Contact */}
+        <ContactSection />
+      </main>
       <Footer />
     </>
   );

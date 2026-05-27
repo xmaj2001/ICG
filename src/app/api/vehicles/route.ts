@@ -1,103 +1,41 @@
-import { generateVehicles } from "@/lib/vehicles/faker";
-import { NextResponse } from "next/server";
-import { NextRequest } from "next/server";
-import type { Vehicle } from "@/lib/vehicles/type";
-
-// Create a static database of 500 vehicles to make filtering work consistently
-export const mockDatabase: Vehicle[] = generateVehicles(500);
+import { NextResponse, NextRequest } from "next/server";
+import { VehicleService } from "@/lib/vehicles/services/vehicle-service";
 
 export async function GET(req: NextRequest) {
-  const searchParams = req.nextUrl.searchParams;
-  const limit = parseInt(searchParams.get("limit") || "10", 10);
-  const cursor = searchParams.get("cursor");
-  const search = searchParams.get("search");
-  const brandParam = searchParams.get("brand");
-  const categoryParam = searchParams.get("category");
-  const fuelParam = searchParams.get("fuel");
-  const transmissionParam = searchParams.get("transmission");
-  const minYear = searchParams.get("minYear");
-  const maxYear = searchParams.get("maxYear");
-  const minPrice = searchParams.get("minPrice");
-  const maxPrice = searchParams.get("maxPrice");
+  try {
+    const searchParams = req.nextUrl.searchParams;
+    
+    const filters = {
+      search: searchParams.get("search"),
+      brand: searchParams.get("brand"),
+      category: searchParams.get("category"),
+      fuel: searchParams.get("fuel"),
+      transmission: searchParams.get("transmission"),
+      minYear: searchParams.get("minYear") ? parseInt(searchParams.get("minYear")!, 10) : undefined,
+      maxYear: searchParams.get("maxYear") ? parseInt(searchParams.get("maxYear")!, 10) : undefined,
+      minPrice: searchParams.get("minPrice") ? parseInt(searchParams.get("minPrice")!, 10) : undefined,
+      maxPrice: searchParams.get("maxPrice") ? parseInt(searchParams.get("maxPrice")!, 10) : undefined,
+    };
 
-  let filteredVehicles = [...mockDatabase];
+    const pagination = {
+      limitSize: parseInt(searchParams.get("limit") || "10", 10),
+      cursorId: searchParams.get("cursor")
+    };
 
-  // Apply filters
-  if (search) {
-    const s = search.toLowerCase();
-    filteredVehicles = filteredVehicles.filter(
-      (v) => v.brand.toLowerCase().includes(s) || v.model.toLowerCase().includes(s)
+    const data = await VehicleService.getVehicles(filters, pagination);
+
+    return NextResponse.json({
+      success: true,
+      data,
+      ts: Date.now(),
+    });
+  } catch (error) {
+    console.error("GET vehicles error:", error);
+    return NextResponse.json(
+      { success: false, error: "Failed to fetch vehicles" },
+      { status: 500 }
     );
   }
-
-  if (brandParam) {
-    const brands = brandParam.split(",");
-    if (!brands.includes("all") && !brands.includes("Todos")) {
-      filteredVehicles = filteredVehicles.filter((v) => brands.includes(v.brand));
-    }
-  }
-
-  if (categoryParam) {
-    const categories = categoryParam.split(",");
-    filteredVehicles = filteredVehicles.filter((v) => categories.includes(v.category));
-  }
-
-  if (fuelParam) {
-    const fuels = fuelParam.split(",");
-    filteredVehicles = filteredVehicles.filter((v) => fuels.includes(v.fuel));
-  }
-
-  if (transmissionParam) {
-    const transmissions = transmissionParam.split(",");
-    filteredVehicles = filteredVehicles.filter((v) => transmissions.includes(v.transmission));
-  }
-
-  if (minYear) {
-    filteredVehicles = filteredVehicles.filter((v) => v.year >= parseInt(minYear, 10));
-  }
-
-  if (maxYear) {
-    filteredVehicles = filteredVehicles.filter((v) => v.year <= parseInt(maxYear, 10));
-  }
-
-  if (minPrice) {
-    filteredVehicles = filteredVehicles.filter((v) => v.price >= parseInt(minPrice, 10));
-  }
-
-  if (maxPrice) {
-    filteredVehicles = filteredVehicles.filter((v) => v.price <= parseInt(maxPrice, 10));
-  }
-
-  const brand = filteredVehicles.reduce(
-    (acc, vehicle) => {
-      acc[vehicle.brand] = (acc[vehicle.brand] || 0) + 1;
-      return acc;
-    },
-    {} as Record<string, number>,
-  );
-  
-  const availableCount = filteredVehicles.filter(
-    (vehicle) => vehicle.status === "Disponível",
-  ).length;
-
-  let startIndex = 0;
-  if (cursor) {
-    startIndex = parseInt(Buffer.from(cursor, "base64").toString("ascii"), 10);
-    if (isNaN(startIndex)) startIndex = 0;
-  }
-
-  const paginatedVehicles = filteredVehicles.slice(startIndex, startIndex + limit);
-  const nextIndex = startIndex + limit;
-  const nextCursor =
-    nextIndex < filteredVehicles.length
-      ? Buffer.from(nextIndex.toString()).toString("base64")
-      : null;
-
-  return NextResponse.json({
-    success: true,
-    data: { vehicles: paginatedVehicles, brand, availableCount, nextCursor },
-    ts: Date.now(),
-  });
 }
 
 export async function POST(req: NextRequest) {
@@ -112,15 +50,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const newVehicle: Vehicle = {
-      ...data,
-      id: crypto.randomUUID(),
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
-
-    // add to our mock db (at the beginning)
-    mockDatabase.unshift(newVehicle);
+    const newVehicle = await VehicleService.create(data);
 
     return NextResponse.json({
       success: true,
@@ -128,9 +58,10 @@ export async function POST(req: NextRequest) {
       ts: Date.now(),
     });
   } catch (err) {
+    console.error("POST vehicle error:", err);
     return NextResponse.json(
-      { success: false, error: "Invalid payload" },
-      { status: 400 }
+      { success: false, error: "Failed to create vehicle" },
+      { status: 500 }
     );
   }
 }

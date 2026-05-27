@@ -16,7 +16,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ICG - International Car Group | Venda de Carros em Angola",
+  title: {
+    template: "%s | ICG - International Car Group",
+    default: "ICG - International Car Group | Venda de Carros em Angola",
+  },
   description:
     "A ICG (International Car Group) é a sua melhor escolha para compra e venda de carros em Angola. Encontre veículos de qualidade, segurança e os melhores preços do mercado.",
   keywords: [
@@ -28,6 +31,17 @@ export const metadata: Metadata = {
     "veículos",
     "stand automóvel",
   ],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({

@@ -1,21 +1,18 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp, getApps, getApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAxU5yxOKDSWGulMH1egkbnm_xb4bCS9zA",
-  authDomain: "icg-a02b9.firebaseapp.com",
-  projectId: "icg-a02b9",
-  storageBucket: "icg-a02b9.firebasestorage.app",
-  messagingSenderId: "443710966860",
-  appId: "1:443710966860:web:2f35e16952eb34f74e38e9",
-  measurementId: "G-DKDJTDPSM4",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// Initialize Firebase
-export const firebaseApp = initializeApp(firebaseConfig);
-export const analytics = getAnalytics(firebaseApp);
+// Initialize Firebase (singleton pattern for Next.js)
+export const firebaseApp = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+export const db = getFirestore(firebaseApp);

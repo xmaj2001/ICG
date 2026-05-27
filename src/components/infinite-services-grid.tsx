@@ -5,18 +5,21 @@ import { Loader2 } from "lucide-react";
 import { VehicleCard } from "./vehicles/VehicleCard";
 import type { Vehicle } from "@/lib/vehicles/type";
 import { getVehicles } from "@/lib/vehicles/use-case/get-vehicles";
+import { VehicleListRow } from "./vehicles/VehicleListRow";
 
 interface InfiniteServicesGridProps {
   initialServices: Vehicle[];
   initialNextCursor: string | null;
   brand?: string;
   searchParams: Record<string, string | string[] | undefined>;
+  view: "grid" | "list";
 }
 
 export function InfiniteServicesGrid({
   initialServices,
   initialNextCursor,
   brand,
+  view,
   searchParams,
 }: InfiniteServicesGridProps) {
   const [items, setItems] = useState<Vehicle[]>(initialServices);
@@ -43,10 +46,18 @@ export function InfiniteServicesGrid({
       const category = searchParams?.category as string | undefined;
       const fuel = searchParams?.fuel as string | undefined;
       const transmission = searchParams?.transmission as string | undefined;
-      const minYear = searchParams?.minYear ? Number(searchParams.minYear) : undefined;
-      const maxYear = searchParams?.maxYear ? Number(searchParams.maxYear) : undefined;
-      const minPrice = searchParams?.minPrice ? Number(searchParams.minPrice) : undefined;
-      const maxPrice = searchParams?.maxPrice ? Number(searchParams.maxPrice) : undefined;
+      const minYear = searchParams?.minYear
+        ? Number(searchParams.minYear)
+        : undefined;
+      const maxYear = searchParams?.maxYear
+        ? Number(searchParams.maxYear)
+        : undefined;
+      const minPrice = searchParams?.minPrice
+        ? Number(searchParams.minPrice)
+        : undefined;
+      const maxPrice = searchParams?.maxPrice
+        ? Number(searchParams.maxPrice)
+        : undefined;
       const brandParam = searchParams?.brand as string | undefined;
 
       // Chama a função utilitária getVehicles que bate no BFF
@@ -102,11 +113,19 @@ export function InfiniteServicesGrid({
 
   return (
     <div className="flex flex-col gap-6 mt-10">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {items.map((item) => (
-          <VehicleCard key={item.id} vehicle={item} variant="large" />
-        ))}
-      </div>
+      {view === "grid" ? (
+        <div className="grid gap-6 md:grid-cols-2">
+          {items.map((v, i) => (
+            <VehicleCard key={v.id} vehicle={v} />
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-col gap-4">
+          {items.map((v) => (
+            <VehicleListRow key={v.id} vehicle={v} />
+          ))}
+        </div>
+      )}
 
       {/* Trigger de carregamento ou feedback visual */}
       {nextCursor && (

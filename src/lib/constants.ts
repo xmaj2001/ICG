@@ -1,12 +1,29 @@
 import type { Vehicle } from "./vehicles/type";
 
-export const WHATSAPP_NUMBER = "244923456789";
+// Configure your WhatsApp number (international format, no +)
+export const WHATSAPP_NUMBER = "5511999999999";
+
+export function getWhatsappNumber() {
+  if (typeof localStorage !== "undefined") {
+    return localStorage.getItem("icg.whatsapp") || WHATSAPP_NUMBER;
+  }
+  return WHATSAPP_NUMBER;
+}
+
+export function whatsappLink(vehicle: Vehicle) {
+  const msg = encodeURIComponent(
+    `Olá! Tenho interesse no ${vehicle.brand} ${vehicle.model} ${vehicle.year} (R$ ${vehicle.price.toLocaleString("pt-BR")}). Pode me passar mais informações?`,
+  );
+  return `https://wa.me/${getWhatsappNumber()}?text=${msg}`;
+}
 
 export const buildWhatsAppUrl = (
   v: Pick<Vehicle, "brand" | "model" | "year" | "price">,
+  dynamicNumber?: string,
 ) => {
+  const number = dynamicNumber || WHATSAPP_NUMBER;
   const text = `Olá, tenho interesse no ${v.brand} ${v.model} ${v.year} por $${v.price.toLocaleString("pt-AO")} AOA. Ainda está disponível?`;
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+  return `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
 };
 
 // SEARCH CONSTANTS

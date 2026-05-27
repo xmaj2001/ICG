@@ -1,26 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-
-// Simple in-memory store for settings
-// In production, this would go to a database
-let settings = {
-  whatsappNumber: "244923456789",
-};
+import { SettingsService } from "@/lib/vehicles/services/settings-service";
 
 export async function GET() {
-  return NextResponse.json({
-    success: true,
-    data: settings,
-    ts: Date.now(),
-  });
-}
-
-export async function PUT(req: NextRequest) {
   try {
-    const data = await req.json();
-    
-    if (data.whatsappNumber) {
-      settings.whatsappNumber = data.whatsappNumber;
-    }
+    const settings = await SettingsService.getSettings();
 
     return NextResponse.json({
       success: true,
@@ -28,8 +11,39 @@ export async function PUT(req: NextRequest) {
       ts: Date.now(),
     });
   } catch (error) {
+    console.error("GET settings error:", error);
     return NextResponse.json(
-      { success: false, error: "Invalid payload" },
+      { success: false, error: "Failed to fetch settings" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PUT(req: NextRequest) {
+  try {
+    const data = await req.json();
+    
+    // Basic validation
+    if (!data.whatsappNumber) {
+      return NextResponse.json(
+        { success: false, error: "whatsappNumber is required" },
+        { status: 400 }
+      );
+    }
+
+    const updatedSettings = await SettingsService.updateSettings({
+      whatsappNumber: data.whatsappNumber
+    });
+
+    return NextResponse.json({
+      success: true,
+      data: updatedSettings,
+      ts: Date.now(),
+    });
+  } catch (error) {
+    console.error("PUT settings error:", error);
+    return NextResponse.json(
+      { success: false, error: "Invalid payload or update failed" },
       { status: 400 }
     );
   }

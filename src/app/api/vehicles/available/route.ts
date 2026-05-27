@@ -1,14 +1,20 @@
 import { NextResponse } from "next/server";
-import { generateVehicles } from "@/lib/vehicles/faker";
+import { VehicleService } from "@/lib/vehicles/services/vehicle-service";
 
 export async function GET() {
-  const vehicles = generateVehicles(100);
-  const availableCount = vehicles.filter(
-    (vehicle) => vehicle.status === "Disponível",
-  ).length;
-  return NextResponse.json({
-    success: true,
-    data: availableCount,
-    ts: Date.now(),
-  });
+  try {
+    const availableCount = await VehicleService.getAvailableCount();
+    
+    return NextResponse.json({
+      success: true,
+      data: availableCount,
+      ts: Date.now(),
+    });
+  } catch (error) {
+    console.error("GET available vehicles count error:", error);
+    return NextResponse.json(
+      { success: false, error: "Failed to fetch available count" },
+      { status: 500 }
+    );
+  }
 }

@@ -29,8 +29,8 @@ export function Gallery({ images, brand, badge }: GalleryProps) {
             <Image
               src={images[active]}
               alt={`Foto ${active + 1}`}
-              width={100}
-              height={100}
+              width={800}
+              height={800}
               className="object-cover w-full h-full"
             />
           </div>

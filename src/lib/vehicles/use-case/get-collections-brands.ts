@@ -1,9 +1,16 @@
 import type { ApiResponse } from "@/lib/response";
 
+import { VehicleService } from "../services/vehicle-service";
+
 export const getCollectionsBrands = async (): Promise<
   ServiceCollectionFilter[]
 > => {
-  const res = await fetch(`http://localhost:3000/api/vehicles/brand`);
+  if (typeof window === "undefined") {
+    const data = await VehicleService.getBrandCounts();
+    return generateCollections(data ?? []);
+  }
+
+  const res = await fetch(`/api/vehicles/brand`);
   const result: ApiResponse<{ count: number; brand: string }[]> = await res.json();
 
   return generateCollections(result.data ?? []);

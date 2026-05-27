@@ -4,7 +4,7 @@ import type { Vehicle } from "../type";
 export const createVehicle = async (
   data: Partial<Vehicle>
 ): Promise<ApiResponse<Vehicle>> => {
-  const res = await fetch(`http://localhost:3000/api/vehicles`, {
+  const res = await fetch(`/api/vehicles`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

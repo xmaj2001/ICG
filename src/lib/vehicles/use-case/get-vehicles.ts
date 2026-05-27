@@ -15,10 +15,21 @@ interface GetVehiclesInput {
   maxPrice?: number;
 }
 
+import { VehicleService } from "../services/vehicle-service";
+
 export const getVehicles = async (
   input?: GetVehiclesInput,
 ): Promise<GetVehiclesResponse> => {
   const { cursor, limit, search, category, brand, fuel, transmission, minYear, maxYear, minPrice, maxPrice } = input ?? {};
+  
+  if (typeof window === "undefined") {
+    const data = await VehicleService.getVehicles(
+      { search, category, brand, fuel, transmission, minYear, maxYear, minPrice, maxPrice },
+      { cursorId: cursor, limitSize: limit }
+    );
+    return { data, success: true, ts: Date.now() };
+  }
+
   const params = new URLSearchParams();
 
   if (cursor) params.set("cursor", cursor);
@@ -33,7 +44,7 @@ export const getVehicles = async (
   if (minPrice) params.set("minPrice", minPrice.toString());
   if (maxPrice) params.set("maxPrice", maxPrice.toString());
 
-  const url = `http://localhost:3000/api/vehicles/?${params.toString()}`;
+  const url = `/api/vehicles/?${params.toString()}`;
   const res = await fetch(url);
   const data: GetVehiclesResponse = await res.json();
   return data;

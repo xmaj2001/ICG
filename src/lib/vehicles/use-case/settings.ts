@@ -1,11 +1,18 @@
 import type { ApiResponse } from "@/lib/response";
 
+import { SettingsService } from "../services/settings-service";
+
 export interface Settings {
   whatsappNumber: string;
 }
 
 export const getSettings = async (): Promise<ApiResponse<Settings>> => {
-  const res = await fetch(`http://localhost:3000/api/settings`, {
+  if (typeof window === "undefined") {
+    const data = await SettingsService.getSettings();
+    return { data, success: true, ts: Date.now() };
+  }
+
+  const res = await fetch(`/api/settings`, {
     cache: "no-store",
   });
   
@@ -19,7 +26,7 @@ export const getSettings = async (): Promise<ApiResponse<Settings>> => {
 export const updateSettings = async (
   data: Partial<Settings>
 ): Promise<ApiResponse<Settings>> => {
-  const res = await fetch(`http://localhost:3000/api/settings`, {
+  const res = await fetch(`/api/settings`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

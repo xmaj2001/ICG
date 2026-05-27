@@ -1,5 +1,7 @@
 import type { ApiResponse } from "@/lib/response";
 
+import { VehicleService } from "../services/vehicle-service";
+
 export interface DashboardStats {
   inStock: number;
   soldThisMonth: number;
@@ -8,7 +10,12 @@ export interface DashboardStats {
 }
 
 export const getStats = async (): Promise<ApiResponse<DashboardStats>> => {
-  const res = await fetch(`http://localhost:3000/api/stats`, {
+  if (typeof window === "undefined") {
+    const data = await VehicleService.getDashboardStats();
+    return { data, success: true, ts: Date.now() };
+  }
+
+  const res = await fetch(`/api/stats`, {
     cache: "no-store",
   });
   

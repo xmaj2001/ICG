@@ -3,7 +3,7 @@ import type { ApiResponse } from "@/lib/response";
 export const deleteVehicle = async (
   id: string
 ): Promise<ApiResponse<{ id: string }>> => {
-  const res = await fetch(`http://localhost:3000/api/vehicles/${id}`, {
+  const res = await fetch(`/api/vehicles/${id}`, {
     method: "DELETE",
   });
   

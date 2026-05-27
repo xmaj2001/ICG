@@ -5,7 +5,7 @@ export const updateVehicle = async (
   id: string,
   data: Partial<Vehicle>
 ): Promise<ApiResponse<Vehicle>> => {
-  const res = await fetch(`http://localhost:3000/api/vehicles/${id}`, {
+  const res = await fetch(`/api/vehicles/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

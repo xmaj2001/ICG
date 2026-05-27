@@ -7,7 +7,7 @@ export interface CloudinaryUsage {
 }
 
 export const getCloudinaryUsage = async (): Promise<ApiResponse<CloudinaryUsage>> => {
-  const res = await fetch(`http://localhost:3000/api/cloudinary/usage`, {
+  const res = await fetch(`/api/cloudinary/usage`, {
     cache: "no-store",
   });
   

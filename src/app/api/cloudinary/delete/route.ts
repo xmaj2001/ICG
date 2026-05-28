@@ -1,9 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
+import { checkHmacWithBody } from '@/lib/hmac'
+import { getAuthSession } from '@/lib/auth-session'
 
 export async function POST(req: NextRequest) {
+  const rawBody = await req.text()
+  // const hmacError = await checkHmacWithBody(req, rawBody)
+  // if (hmacError) return hmacError
+
+  try { await getAuthSession() }
+  catch { return NextResponse.json({ error: 'Não autorizado' }, { status: 401 }) }
+
   try {
-    const { publicIds } = await req.json();
+    const { publicIds } = JSON.parse(rawBody);
 
     if (!publicIds || !Array.isArray(publicIds) || publicIds.length === 0) {
       return NextResponse.json(
@@ -21,9 +30,6 @@ export async function POST(req: NextRequest) {
     }
 
     const timestamp = Math.round(Date.now() / 1000);
-
-    // We can delete multiple images using the destroy endpoint sequentially
-    // Or use bulk delete Admin API. For simplicity, we'll map over destroy.
 
     const results = await Promise.all(
       publicIds.map(async (publicId) => {

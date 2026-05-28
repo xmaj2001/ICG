@@ -1,3 +1,4 @@
+import { apiClient } from "@/lib/api-client";
 import type { ApiResponse } from "@/lib/response";
 
 export interface Settings {
@@ -5,31 +6,14 @@ export interface Settings {
 }
 
 export const getSettings = async (): Promise<ApiResponse<Settings>> => {
-  const res = await fetch(`/api/settings`, {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch settings");
-  }
-
-  return res.json();
+  return apiClient<ApiResponse<Settings>>(`/api/settings`);
 };
 
 export const updateSettings = async (
   data: Partial<Settings>,
 ): Promise<ApiResponse<Settings>> => {
-  const res = await fetch(`/api/settings`, {
+  return apiClient<ApiResponse<Settings>>(`/api/settings`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: JSON.stringify(data),
   });
-
-  if (!res.ok) {
-    throw new Error("Failed to update settings");
-  }
-
-  return res.json();
 };

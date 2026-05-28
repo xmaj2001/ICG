@@ -1,7 +1,11 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { VehicleService } from "@/lib/vehicles/services/vehicle-service";
+import { checkHmac } from "@/lib/hmac";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  // const hmacError = await checkHmac(request)
+  // if (hmacError) return hmacError
+
   try {
     const brandCountArray = await VehicleService.getBrandCounts();
 

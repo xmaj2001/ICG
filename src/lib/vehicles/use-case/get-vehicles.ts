@@ -1,3 +1,4 @@
+import { apiClient } from "@/lib/api-client";
 import type { ApiResponse } from "@/lib/response";
 import type { Vehicle } from "../type";
 
@@ -47,9 +48,7 @@ export const getVehicles = async (
   if (maxPrice) params.set("maxPrice", maxPrice.toString());
 
   const url = `/api/vehicles/?${params.toString()}`;
-  const res = await fetch(url);
-  const data: GetVehiclesResponse = await res.json();
-  return data;
+  return apiClient<GetVehiclesResponse>(url);
 };
 
 export interface GetVehiclesResponse

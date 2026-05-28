@@ -1,7 +1,18 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { connection } from "next/server";
+import { checkHmac } from "@/lib/hmac";
+import { getAuthSession } from "@/lib/auth-session";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  // const hmacError = await checkHmac(request)
+  // if (hmacError) return hmacError
+
+  try {
+    await getAuthSession();
+  } catch {
+    return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+  }
+
   await connection();
   try {
     const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
@@ -14,14 +25,12 @@ export async function GET() {
 
     const auth = Buffer.from(`${apiKey}:${apiSecret}`).toString("base64");
 
-    // Cloudinary Admin API usage endpoint
     const response = await fetch(
       `https://api.cloudinary.com/v1_1/${cloudName}/usage`,
       {
         headers: {
           Authorization: `Basic ${auth}`,
         },
-        // Don't cache admin API calls
         cache: "no-store",
       },
     );
@@ -31,13 +40,8 @@ export async function GET() {
     }
 
     const data = await response.json();
-
-    // Calculate storage in GB (assuming data.storage is bytes or something similar)
-    // Actually, Cloudinary API returns credits and usage metrics
-    // For simplicity of this mock, we'll return a structure we can use
-
     const usedBytes = data.storage?.usage || 0;
-    const limitBytes = data.storage?.limit || 20 * 1024 * 1024 * 1024; // fallback 20GB
+    const limitBytes = data.storage?.limit || 20 * 1024 * 1024 * 1024;
 
     const used = parseFloat((usedBytes / (1024 * 1024 * 1024)).toFixed(2));
     const limit = parseFloat((limitBytes / (1024 * 1024 * 1024)).toFixed(2));
@@ -53,7 +57,6 @@ export async function GET() {
     });
   } catch (error) {
     console.error("Cloudinary usage error:", error);
-    // Return mock data if API fails to avoid breaking dashboard
     return NextResponse.json({
       success: true,
       data: {

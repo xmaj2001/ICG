@@ -1,3 +1,4 @@
+import { apiClient } from "@/lib/api-client";
 import type { ApiResponse } from "@/lib/response";
 
 export interface DashboardStats {
@@ -8,13 +9,5 @@ export interface DashboardStats {
 }
 
 export const getStats = async (): Promise<ApiResponse<DashboardStats>> => {
-  const res = await fetch(`/api/stats`, {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch stats");
-  }
-
-  return res.json();
+  return apiClient<ApiResponse<DashboardStats>>(`/api/stats`);
 };

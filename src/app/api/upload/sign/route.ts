@@ -1,16 +1,22 @@
-// src/app/api/upload/sign/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
+import { checkHmacWithBody } from '@/lib/hmac'
+import { getAuthSession } from '@/lib/auth-session'
 
 export async function POST(req: NextRequest) {
+  const rawBody = await req.text()
+  // const hmacError = await checkHmacWithBody(req, rawBody)
+  // if (hmacError) return hmacError
+
+  try { await getAuthSession() }
+  catch { return NextResponse.json({ error: 'Não autorizado' }, { status: 401 }) }
+
   try {
-    const { folder } = await req.json();
+    const { folder } = JSON.parse(rawBody);
 
     const timestamp = Math.round(Date.now() / 1000);
-    const uploadPreset = "icg"; // o teu preset
+    const uploadPreset = "icg";
 
-    // Params que vão ser assinados — têm de ser EXACTAMENTE os mesmos
-    // que o client vai enviar no upload
     const paramsToSign = [
       `folder=${folder ?? "/vehicles/imagens"}`,
       `timestamp=${timestamp}`,
@@ -21,7 +27,7 @@ export async function POST(req: NextRequest) {
 
     const signature = crypto
       .createHash("sha256")
-      .update(paramsToSign + process.env.CLOUDINARY_API_SECRET)
+      .update(paramsToSign + process.env.CLOUDINARY_API_SECRET!)
       .digest("hex");
 
     return NextResponse.json({

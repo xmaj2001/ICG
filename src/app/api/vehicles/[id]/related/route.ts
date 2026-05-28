@@ -1,10 +1,14 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { VehicleService } from "@/lib/vehicles/services/vehicle-service";
+import { checkHmac } from "@/lib/hmac";
 
 export async function GET(
-  request: Request,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  // const hmacError = await checkHmac(request)
+  // if (hmacError) return hmacError
+
   try {
     const { id: vehicleId } = await params;
     const { searchParams } = new URL(request.url);

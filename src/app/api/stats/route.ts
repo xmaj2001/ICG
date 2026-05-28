@@ -1,7 +1,18 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { VehicleService } from "@/lib/vehicles/services/vehicle-service";
+import { checkHmac } from "@/lib/hmac";
+import { getAuthSession } from "@/lib/auth-session";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  // const hmacError = await checkHmac(request)
+  // if (hmacError) return hmacError
+
+  try {
+    await getAuthSession();
+  } catch {
+    return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+  }
+
   try {
     const stats = await VehicleService.getDashboardStats();
 

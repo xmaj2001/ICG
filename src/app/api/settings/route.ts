@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { SettingsService } from "@/lib/settings/services/settings-service";
+import { checkHmac, checkHmacWithBody } from "@/lib/hmac";
+import { getAuthSession } from "@/lib/auth-session";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  // const hmacError = await checkHmac(request)
+  // if (hmacError) return hmacError
+
   try {
     const settings = await SettingsService.getSettings();
 
@@ -19,9 +24,19 @@ export async function GET() {
   }
 }
 
-export async function PUT(req: NextRequest) {
+export async function PUT(request: NextRequest) {
+  const rawBody = await request.text();
+  // const hmacError = await checkHmacWithBody(request, rawBody)
+  // if (hmacError) return hmacError
+
   try {
-    const data = await req.json();
+    await getAuthSession();
+  } catch {
+    return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+  }
+
+  try {
+    const data = JSON.parse(rawBody);
 
     // Basic validation
     if (!data.whatsappNumber) {

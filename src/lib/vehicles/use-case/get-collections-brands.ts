@@ -1,11 +1,10 @@
+import { apiClient } from "@/lib/api-client";
 import type { ApiResponse } from "@/lib/response";
 
 export const getCollectionsBrands = async (): Promise<
   ServiceCollectionFilter[]
 > => {
-  const res = await fetch(`/api/vehicles/brand`);
-  const result: ApiResponse<{ count: number; brand: string }[]> =
-    await res.json();
+  const result = await apiClient<ApiResponse<{ count: number; brand: string }[]>>(`/api/vehicles/brand`);
 
   return generateCollections(result.data ?? []);
 };

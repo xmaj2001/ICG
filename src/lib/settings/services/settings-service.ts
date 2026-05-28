@@ -1,6 +1,5 @@
-import { db } from "@/lib/firebase/config";
+import { adminDb } from '@/lib/firebase/admin';
 import { cacheLife } from "next/cache";
-import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const SETTINGS_DOC_ID = "general";
 const COLLECTION_NAME = "settings";
@@ -13,10 +12,9 @@ export class SettingsService {
   static async getSettings(): Promise<Settings> {
     "use cache";
     cacheLife("hours");
-    const docRef = doc(db, COLLECTION_NAME, SETTINGS_DOC_ID);
-    const docSnap = await getDoc(docRef);
+    const docSnap = await adminDb.collection(COLLECTION_NAME).doc(SETTINGS_DOC_ID).get();
 
-    if (!docSnap.exists()) {
+    if (!docSnap.exists) {
       // Default fallback
       return { whatsappNumber: "244923456789" };
     }
@@ -25,10 +23,10 @@ export class SettingsService {
   }
 
   static async updateSettings(data: Partial<Settings>): Promise<Settings> {
-    const docRef = doc(db, COLLECTION_NAME, SETTINGS_DOC_ID);
+    const docRef = adminDb.collection(COLLECTION_NAME).doc(SETTINGS_DOC_ID);
 
     // Use merge to only update provided fields without overwriting others
-    await setDoc(docRef, data, { merge: true });
+    await docRef.set(data, { merge: true });
 
     return this.getSettings();
   }

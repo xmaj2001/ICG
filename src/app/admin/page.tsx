@@ -14,7 +14,7 @@ export default function Dashboard() {
           </p>
         </div>
         <Link
-          href="/system/vehicle-new"
+          href="/admin/vehicle-new"
           className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-semibold text-background hover:opacity-90"
         >
           <PlusCircle className="h-4 w-4" /> Novo veículo

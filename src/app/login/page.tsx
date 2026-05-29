@@ -50,7 +50,7 @@ export default function LoginPage() {
         return;
       }
 
-      router.push("/system");
+      router.push("/admin");
       router.refresh();
     } catch {
       setError("Erro de ligação. Tenta novamente.");

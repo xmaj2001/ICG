@@ -35,7 +35,7 @@ export function EditarVeiculoClient({
     return (
       <div className="mx-auto mt-20 w-full max-w-4xl p-6 text-center">
         <h2 className="mb-4 font-display text-2xl">Veículo não encontrado</h2>
-        <Button onClick={() => router.push("/system/vehicles")}>
+        <Button onClick={() => router.push("/admin/vehicles")}>
           Voltar ao Inventário
         </Button>
       </div>

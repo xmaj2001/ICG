@@ -28,7 +28,7 @@ export function DeleteDialog({
 }: DeleteDialogProps) {
   return (
     <AlertDialog open={isOpen} onOpenChange={onOpenChange}>
-      <AlertDialogContent className="bg-surface border-border">
+      <AlertDialogContent className="bg-card border-border">
         <AlertDialogHeader>
           <AlertDialogTitle className="font-display text-2xl">
             Eliminar Veículo
@@ -43,7 +43,7 @@ export function DeleteDialog({
         <AlertDialogFooter className="mt-4">
           <AlertDialogCancel
             disabled={isDeleting}
-            className="border-border hover:bg-surface-2 text-foreground"
+            className="border-border hover:bg-card text-foreground"
           >
             Cancelar
           </AlertDialogCancel>

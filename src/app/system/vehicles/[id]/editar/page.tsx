@@ -22,7 +22,7 @@ async function EditarVeiculoContent({
   }
 
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="space-y-8">
       <VehicleForm vehicle={vehicle} />
     </div>
   );

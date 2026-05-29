@@ -31,7 +31,7 @@ export function VehicleTable({
 }: VehicleTableProps) {
   if (isLoading) {
     return (
-      <div className="rounded-xl border border-border bg-surface overflow-hidden">
+      <div className="rounded-xl border border-border bg-card overflow-hidden">
         <Table>
           <TableHeader>
             <TableRow className="border-border hover:bg-transparent">
@@ -76,7 +76,7 @@ export function VehicleTable({
   }
 
   return (
-    <div className="rounded-xl border border-border bg-surface overflow-hidden">
+    <div className="rounded-xl border border-border bg-card overflow-hidden">
       <Table>
         <TableHeader>
           <TableRow className="border-border hover:bg-transparent text-muted-foreground">

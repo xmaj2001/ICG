@@ -1,16 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { SiteHeader } from "@/components/site-header";
 import { getSettings, updateSettings } from "@/lib/settings/use-case/settings";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2, Save, CheckCircle2 } from "lucide-react";
+import { Loader2, Save } from "lucide-react";
 import { toast } from "sonner";
 
 export default function ConfiguracoesPage() {
   const [whatsappNumber, setWhatsappNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
 
@@ -19,7 +20,9 @@ export default function ConfiguracoesPage() {
       try {
         const res = await getSettings();
         if (res.success) {
-          setWhatsappNumber(res.data.whatsappNumber);
+          setWhatsappNumber(res.data.whatsappNumber || "");
+          setEmail(res.data.email || "");
+          setAddress(res.data.address || "");
         }
       } catch (error) {
         console.error("Failed to load settings", error);
@@ -34,7 +37,7 @@ export default function ConfiguracoesPage() {
     e.preventDefault();
     try {
       setIsSaving(true);
-      await updateSettings({ whatsappNumber });
+      await updateSettings({ whatsappNumber, email, address });
       toast.success("Definições atualizadas com sucesso!");
     } catch (error) {
       console.error("Failed to save settings", error);
@@ -45,8 +48,7 @@ export default function ConfiguracoesPage() {
   };
 
   return (
-    <>
-      <SiteHeader title="Configurações" />
+    <div className="space-y-8">
       <div className="flex flex-1 flex-col">
         <div className="flex flex-1 flex-col gap-2 p-4 md:gap-6 md:p-6">
           <div className="mb-4">
@@ -57,7 +59,7 @@ export default function ConfiguracoesPage() {
           </div>
 
           <div className="max-w-2xl">
-            <div className="rounded-xl border border-border bg-surface overflow-hidden shadow-sm">
+            <div className="rounded-xl border border-border bg-card overflow-hidden shadow-sm">
               <div className="p-6 border-b border-border">
                 <h2 className="font-display text-xl">Contacto e Integrações</h2>
                 <p className="text-sm text-muted-foreground mt-1">
@@ -90,6 +92,46 @@ export default function ConfiguracoesPage() {
                       as mensagens de interesse nos veículos.
                     </p>
                   </div>
+                  {/* Email */}
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email</Label>
+                    <div className="flex gap-4">
+                      <div className="relative flex-1 max-w-sm">
+                        <Input
+                          id="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="[EMAIL_ADDRESS]"
+                          className="bg-background"
+                          disabled={isLoading || isSaving}
+                        />
+                      </div>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      O email receberá todas as mensagens de interesse nos
+                      veículos.
+                    </p>
+                  </div>
+                  {/* address */}
+                  <div className="space-y-2">
+                    <Label htmlFor="address">Endereço</Label>
+                    <div className="flex gap-4">
+                      <div className="relative flex-1 max-w-sm">
+                        <Input
+                          id="address"
+                          value={address}
+                          onChange={(e) => setAddress(e.target.value)}
+                          placeholder="Luanda, Angola"
+                          className="bg-background"
+                          disabled={isLoading || isSaving}
+                        />
+                      </div>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      O endereço receberá todas as mensagens de interesse nos
+                      veículos.
+                    </p>
+                  </div>
 
                   <div className="pt-4 border-t border-border flex items-center gap-4">
                     <Button
@@ -115,6 +157,6 @@ export default function ConfiguracoesPage() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

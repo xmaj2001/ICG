@@ -3,6 +3,8 @@ import type { ApiResponse } from "@/lib/response";
 
 export interface Settings {
   whatsappNumber: string;
+  email: string;
+  address: string;
 }
 
 export const getSettings = async (): Promise<ApiResponse<Settings>> => {

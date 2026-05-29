@@ -48,6 +48,8 @@ export async function PUT(request: NextRequest) {
 
     const updatedSettings = await SettingsService.updateSettings({
       whatsappNumber: data.whatsappNumber,
+      email: data.email,
+      address: data.address,
     });
 
     return NextResponse.json({

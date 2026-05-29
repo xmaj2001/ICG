@@ -136,7 +136,7 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
         </div>
       </div>
 
-      <div className="rounded-xl border border-border bg-surface p-6">
+      <div className="rounded-xl border border-border bg-card p-6">
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Controller

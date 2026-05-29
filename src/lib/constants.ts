@@ -10,19 +10,14 @@ export function getWhatsappNumber() {
   return WHATSAPP_NUMBER;
 }
 
-export function whatsappLink(vehicle: Vehicle) {
-  const msg = encodeURIComponent(
-    `Olá! Tenho interesse no ${vehicle.brand} ${vehicle.model} ${vehicle.year} (R$ ${vehicle.price.toLocaleString("pt-BR")}). Pode me passar mais informações?`,
-  );
-  return `https://wa.me/${getWhatsappNumber()}?text=${msg}`;
-}
-
 export const buildWhatsAppUrl = (
-  v: Pick<Vehicle, "brand" | "model" | "year" | "price">,
+  v: Pick<Vehicle, "id" | "brand" | "model" | "year" | "price">,
   dynamicNumber?: string,
 ) => {
   const number = dynamicNumber || WHATSAPP_NUMBER;
-  const text = `Olá, tenho interesse no ${v.brand} ${v.model} ${v.year} por $${v.price.toLocaleString("pt-AO")} AOA. Ainda está disponível?`;
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+  const vehicleLink = `${baseUrl}/veiculo/${v.id}`;
+  const text = `Olá, tenho interesse no ${v.brand} ${v.model} ${v.year} por $${v.price.toLocaleString("pt-AO")} AOA. Ainda está disponível?\n\nVeja aqui: ${vehicleLink}`;
   return `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
 };
 

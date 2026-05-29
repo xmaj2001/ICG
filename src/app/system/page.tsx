@@ -1,7 +1,8 @@
-import { Car, DollarSign, Fuel, PlusCircle, TrendingUp } from "lucide-react";
+import { PlusCircle } from "lucide-react";
 import Link from "next/link";
-import { Vehicle } from "@/lib/vehicles/type";
+import type { Vehicle } from "@/lib/vehicles/type";
 import { StatsCards } from "./_components/StatsCards";
+import { formatPrice } from "@/lib/utils";
 
 export default function dashboard() {
   const vehicles: Vehicle[] = [];
@@ -45,32 +46,12 @@ export default function dashboard() {
                 </div>
               </div>
               <span className="text-sm font-semibold">
-                ${v.price.toLocaleString("en-US")}
+                {formatPrice(v.price)}
               </span>
             </div>
           ))}
         </div>
       </div>
-    </div>
-  );
-}
-
-function Stat({
-  icon,
-  label,
-  value,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-}) {
-  return (
-    <div className="rounded-2xl border border-border bg-card p-5">
-      <div className="flex items-center justify-between text-muted-foreground [&_svg]:h-4 [&_svg]:w-4">
-        <span className="text-xs uppercase tracking-wider">{label}</span>
-        {icon}
-      </div>
-      <div className="mt-2 text-2xl font-bold">{value}</div>
     </div>
   );
 }

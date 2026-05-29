@@ -37,7 +37,7 @@ export function ViewToggle() {
       <Button
         onClick={() => setView("list")}
         aria-label="Visualização em lista"
-        className={`p-2 rounded-full ${currentView === "list" ? "bg-foreground text-background" : "bg-transparent text-muted-foreground hover:bg-accent"}`}
+        className={`p-2 rounded-full hidden md:block ${currentView === "list" ? "bg-foreground text-background" : "bg-transparent text-muted-foreground hover:bg-accent"}`}
       >
         <Rows className="h-4 w-4" />
       </Button>

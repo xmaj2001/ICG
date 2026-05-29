@@ -22,3 +22,13 @@ export const formatPrice = (value: number) =>
   );
 export const formatNumber = (value: number) =>
   new Intl.NumberFormat("pt-AO").format(value);
+
+// Formatar data de criação
+export const formatDate = (date: string) => {
+  const d = new Date(date);
+  return d.toLocaleDateString("pt-AO", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+};

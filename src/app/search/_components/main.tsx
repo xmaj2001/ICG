@@ -38,7 +38,7 @@ export function SearchMain({
         {/* Header bar */}
         <div className="mb-8 flex items-center justify-between">
           <h1 className="text-3xl font-bold">
-            Em Estoque{" "}
+            Em estoque{" "}
             <span className="text-muted-foreground">({totalCount})</span>
           </h1>
           <div className="flex items-center gap-3">

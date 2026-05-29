@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { MessageCircle, X } from "lucide-react";
 import { Vehicle } from "@/lib/vehicles/type";
-import { whatsappLink } from "@/lib/constants";
+import { buildWhatsAppUrl } from "@/lib/constants";
 
 function isMobile() {
   if (typeof navigator === "undefined") return false;
@@ -15,10 +15,12 @@ function isMobile() {
 
 export function WhatsAppButton({
   vehicle,
+  whatsappNumber,
   className = "",
   label = "Tenho interesse",
 }: {
   vehicle: Vehicle;
+  whatsappNumber?: string;
   className?: string;
   label?: string;
 }) {
@@ -29,7 +31,7 @@ export function WhatsAppButton({
     setMobile(isMobile());
   }, []);
 
-  const link = whatsappLink(vehicle);
+  const link = buildWhatsAppUrl(vehicle, whatsappNumber);
 
   const handleClick = (e: React.MouseEvent) => {
     if (mobile) {

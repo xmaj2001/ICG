@@ -3,8 +3,7 @@ import { BarChart3, TrendingUp } from "lucide-react";
 
 export default function RelatoriosPage() {
   return (
-    <>
-      <SiteHeader title="Relatórios" />
+    <div className="space-y-8">
       <div className="flex flex-1 flex-col">
         <div className="flex flex-1 flex-col gap-2 p-4 md:gap-6 md:p-6">
           <div className="mb-4">
@@ -15,7 +14,7 @@ export default function RelatoriosPage() {
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <div className="col-span-1 lg:col-span-2 rounded-xl border border-border bg-surface p-6">
+            <div className="col-span-1 lg:col-span-2 rounded-xl border border-border bg-card p-6">
               <div className="flex items-center gap-2 mb-4">
                 <BarChart3 className="text-gold" />
                 <h2 className="font-display text-xl">Vendas por Mês</h2>
@@ -23,7 +22,7 @@ export default function RelatoriosPage() {
               <div className="h-64 flex items-end gap-2 pt-4">
                 {[40, 70, 45, 90, 65, 85, 120, 95].map((height, i) => (
                   <div
-                    key={i}
+                    key={i.toString()}
                     className="flex-1 flex flex-col items-center justify-end gap-2 h-full"
                   >
                     <div
@@ -50,7 +49,7 @@ export default function RelatoriosPage() {
             </div>
 
             <div className="col-span-1 flex flex-col gap-6">
-              <div className="rounded-xl border border-border bg-surface p-6 flex-1">
+              <div className="rounded-xl border border-border bg-card p-6 flex-1">
                 <h2 className="font-display text-xl mb-4">Conversão</h2>
                 <div className="flex items-baseline gap-2">
                   <span className="text-4xl font-bold font-display">4.2%</span>
@@ -63,7 +62,7 @@ export default function RelatoriosPage() {
                 </p>
               </div>
 
-              <div className="rounded-xl border border-border bg-surface p-6 flex-1">
+              <div className="rounded-xl border border-border bg-card p-6 flex-1">
                 <h2 className="font-display text-xl mb-4">Top Categoria</h2>
                 <div className="flex items-center gap-4">
                   <div className="h-16 w-16 rounded-full bg-gold/10 flex items-center justify-center text-gold font-bold text-xl">
@@ -81,6 +80,6 @@ export default function RelatoriosPage() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

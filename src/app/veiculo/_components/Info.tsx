@@ -1,15 +1,14 @@
-"use client";
-
 import { Calendar, Fuel, Gauge, Zap } from "lucide-react";
 import type { Vehicle } from "@/lib/vehicles/type";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
-import { formatPrice } from "@/lib/utils";
+import { formatDate, formatPrice } from "@/lib/utils";
 
 interface InfoProps {
   vehicle: Vehicle;
+  whatsappNumber?: string;
 }
 
-export function Info({ vehicle }: InfoProps) {
+export function Info({ vehicle, whatsappNumber }: InfoProps) {
   return (
     <aside>
       <p className="text-sm uppercase tracking-wider text-muted-foreground">
@@ -33,7 +32,7 @@ export function Info({ vehicle }: InfoProps) {
         <Spec
           icon={<Calendar className="h-4 w-4" />}
           label="Postado em"
-          value={vehicle.createdAt}
+          value={formatDate(vehicle.createdAt)}
         />
         <Spec
           icon={<Fuel className="h-4 w-4" />}
@@ -62,7 +61,11 @@ export function Info({ vehicle }: InfoProps) {
         <p className="mt-1 text-sm text-muted-foreground">
           Fale com um consultor pelo WhatsApp. No desktop, escaneie o QR Code.
         </p>
-        <WhatsAppButton vehicle={vehicle} className="mt-4 w-full" />
+        <WhatsAppButton
+          vehicle={vehicle}
+          whatsappNumber={whatsappNumber}
+          className="mt-4 w-full"
+        />
       </div>
     </aside>
   );

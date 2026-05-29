@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { VehicleService } from "@/lib/vehicles/services/vehicle-service";
+import { SettingsService } from "@/lib/settings/services/settings-service";
 import Link from "next/link";
 import { Gallery } from "../_components/Gallery";
 import { Info } from "../_components/Info";
@@ -66,6 +67,7 @@ async function VehicleContent({
 }) {
   const { id } = await paramsPromise;
   const vehicle = await VehicleService.getById(id);
+  const settings = await SettingsService.getSettings();
 
   if (!vehicle) {
     return (
@@ -140,7 +142,7 @@ async function VehicleContent({
               badge={vehicle.badge}
             />
           </div>
-          <Info vehicle={vehicle} />
+          <Info vehicle={vehicle} whatsappNumber={settings.whatsappNumber} />
         </div>
 
         {/* Related */}

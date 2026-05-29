@@ -90,6 +90,7 @@ export default function LoginPage() {
       onResetPassword={handleRecover}
       onCreateAccount={() => {}}
       error={error}
+      loading={loading}
     />
   );
 }

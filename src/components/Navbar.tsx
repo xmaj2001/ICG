@@ -66,14 +66,6 @@ export function Navbar() {
           {/* Direita: Ações */}
           <div className="flex items-center gap-2 shrink-0">
             <ModeToggle />
-            <Button
-              variant="ghost"
-              size="icon"
-              className="hidden sm:inline-flex rounded-full hover:bg-accent hover:text-foreground"
-            >
-              <User className="h-5 w-5" />
-            </Button>
-
             {/* Menu Mobile */}
             <Sheet>
               <SheetTrigger asChild>

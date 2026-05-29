@@ -110,12 +110,16 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
         await createVehicle(data);
         toast.success("Veículo criado com sucesso!");
       }
-      router.push("/system/vehicles");
+      router.push("/admin/vehicles");
     } catch (error) {
       console.error("Failed to save vehicle", error);
       toast.error("Ocorreu um erro ao guardar o veículo.");
+      form.reset();
+      setImages([]);
     } finally {
       setIsSubmitting(false);
+      form.reset();
+      setImages([]);
     }
   };
 

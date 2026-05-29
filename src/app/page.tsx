@@ -6,6 +6,7 @@ import { HeroSection } from "./_components/hero-section";
 import { FeaturedCarousel } from "./_components/featured-carousel";
 import { AboutSection } from "./_components/about-section";
 import { ContactSection } from "./_components/contact-section";
+import { Badge } from "@/lib/vehicles/type";
 
 export const metadata: Metadata = {
   title: "Encontre o Carro dos Seus Sonhos em Angola",
@@ -32,14 +33,14 @@ export const metadata: Metadata = {
 export default async function Home() {
   const data = await VehicleService.getVehicles({}, {});
   const vehicles = data.vehicles;
-  const featured = vehicles.slice(0, 3);
+  const featured = vehicles.filter((x) => x.badge === Badge.DESTAQUE);
 
   return (
     <>
       <Navbar />
       <main className="mx-auto max-w-[1400px] px-6 py-16">
         {/* Hero Section */}
-        <HeroSection vehicle={featured[0] ?? undefined} />
+        <HeroSection />
 
         {/* Featured carousel */}
         <FeaturedCarousel vehicles={featured} />

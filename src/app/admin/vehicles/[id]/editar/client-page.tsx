@@ -2,7 +2,7 @@
 
 import { use } from "react";
 import { useVehicle } from "@/lib/vehicles/hooks";
-import { VehicleForm } from "@/app/system/_components/VehicleForm";
+import { VehicleForm } from "@/app/admin/_components/VehicleForm";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";

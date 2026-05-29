@@ -1,4 +1,3 @@
-import { SiteHeader } from "@/components/site-header";
 import { BarChart3, TrendingUp } from "lucide-react";
 
 export default function RelatoriosPage() {
@@ -65,7 +64,7 @@ export default function RelatoriosPage() {
               <div className="rounded-xl border border-border bg-card p-6 flex-1">
                 <h2 className="font-display text-xl mb-4">Top Categoria</h2>
                 <div className="flex items-center gap-4">
-                  <div className="h-16 w-16 rounded-full bg-gold/10 flex items-center justify-center text-gold font-bold text-xl">
+                  <div className="h-16 w-16 rounded-full bg-card flex items-center justify-center text-gold font-bold text-xl">
                     SUV
                   </div>
                   <div>

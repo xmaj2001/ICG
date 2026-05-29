@@ -137,7 +137,7 @@ export default function ConfiguracoesPage() {
                     <Button
                       type="submit"
                       disabled={isLoading || isSaving || !whatsappNumber}
-                      className="bg-gold hover:bg-gold/90 text-background px-6"
+                      className="dark:bg-white bg-black dark:hover:bg-white/80 hover:bg-black/50 text-background px-6"
                     >
                       {isSaving ? (
                         <>

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2, AlertCircle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 
 // --- HELPER COMPONENTS (ICONS) ---
@@ -45,6 +45,7 @@ interface SignInPageProps {
   heroImageSrc?: string;
   testimonials?: Testimonial[];
   error?: string;
+  loading?: boolean;
   onSignIn?: (event: React.FormEvent<HTMLFormElement>) => void;
   onGoogleSignIn?: () => void;
   onResetPassword?: () => void;
@@ -91,9 +92,10 @@ export const SignInPage: React.FC<SignInPageProps> = ({
     </span>
   ),
   description = "Aceda à sua conta e continue a sua jornada connosco",
-  heroImageSrc = "/hero-image.png",
+  heroImageSrc = "/ICG-LOGO-black.png",
   testimonials = [],
   error,
+  loading = false,
   onSignIn,
   onGoogleSignIn,
   onResetPassword,
@@ -116,11 +118,12 @@ export const SignInPage: React.FC<SignInPageProps> = ({
 
             <form className="space-y-5" onSubmit={onSignIn}>
               <div className="animate-element animate-delay-300">
-                <label className="text-sm font-medium text-muted-foreground">
+                <label htmlFor="email" className="text-sm font-medium text-muted-foreground">
                   Seu Email
                 </label>
                 <GlassInputWrapper>
                   <input
+                    id="email"
                     name="email"
                     type="email"
                     placeholder="Digite seu email"
@@ -130,12 +133,13 @@ export const SignInPage: React.FC<SignInPageProps> = ({
               </div>
 
               <div className="animate-element animate-delay-400">
-                <label className="text-sm font-medium text-muted-foreground">
+                <label htmlFor="password" className="text-sm font-medium text-muted-foreground">
                   Senha
                 </label>
                 <GlassInputWrapper>
                   <div className="relative">
                     <input
+                      id="password"
                       name="password"
                       type={showPassword ? "text" : "password"}
                       placeholder="Digite sua senha"
@@ -157,19 +161,30 @@ export const SignInPage: React.FC<SignInPageProps> = ({
               </div>
 
               {error && (
-                <Alert className="animate-element animate-delay-500 border border-red-500/80">
-                  <AlertTitle className="text-foreground text-red-500">{`Não foi possível iniciar sessão`}</AlertTitle>
-                  <AlertDescription className="text-muted-foreground">
-                    {error}
-                  </AlertDescription>
+                <Alert className="animate-element animate-delay-500 border border-red-500/50 bg-red-50 dark:bg-red-950/20 flex gap-3">
+                  <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400 mt-0.5 shrink-0" />
+                  <div>
+                    <AlertTitle className="text-red-800 dark:text-red-300 font-semibold">{`Não foi possível iniciar sessão`}</AlertTitle>
+                    <AlertDescription className="text-red-700/90 dark:text-red-400/90 mt-1">
+                      {error}
+                    </AlertDescription>
+                  </div>
                 </Alert>
               )}
 
               <button
                 type="submit"
-                className="animate-element animate-delay-600 w-full rounded-2xl bg-primary py-4 font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+                disabled={loading}
+                className="animate-element animate-delay-600 flex items-center justify-center gap-2 w-full rounded-2xl bg-primary py-4 font-medium text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                Entrar
+                {loading ? (
+                  <>
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                    A iniciar sessão...
+                  </>
+                ) : (
+                  "Entrar"
+                )}
               </button>
             </form>
           </div>

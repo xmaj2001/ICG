@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { VehicleService } from "@/lib/vehicles/services/vehicle-service";
 import { connection } from "next/server";
-import { VehicleForm } from "@/app/system/_components/VehicleForm";
+import { VehicleForm } from "@/app/admin/_components/VehicleForm";
 import Loading from "./loading";
 
 async function EditarVeiculoContent({

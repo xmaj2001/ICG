@@ -1,4 +1,4 @@
-import { VehicleForm } from "@/app/system/_components/VehicleForm";
+import { VehicleForm } from "@/app/admin/_components/VehicleForm";
 
 export default function NovoVeiculoPage() {
   return (

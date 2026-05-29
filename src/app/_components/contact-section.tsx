@@ -42,7 +42,7 @@ export async function ContactSection() {
         <div className="h-96 rounded-2xl">
           <Image
             className="size-full object-contain rounded-2xl"
-            src="/brand.jpg"
+            src="/ICG-LOGO-black.png"
             alt="Contact"
             width={600}
             height={600}

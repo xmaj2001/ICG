@@ -19,7 +19,9 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
             <h3 className="text-xl font-semibold text-foreground">
               {vehicle.brand} {vehicle.model}
             </h3>
-            <p className="mt-1 text-xs text-muted-foreground">{vehicle.fuel}</p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              {vehicle.category} | {vehicle.fuel}
+            </p>
           </div>
           <div className="flex items-center gap-2">
             <span className="text-lg font-bold text-foreground">

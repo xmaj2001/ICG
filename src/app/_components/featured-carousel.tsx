@@ -33,7 +33,7 @@ export function FeaturedCarousel({ vehicles }: FeaturedCarouselProps) {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="hidden md:flex" />
+        <CarouselPrevious className="hidden md:flex text-foreground " />
         <CarouselNext className="hidden md:flex" />
       </Carousel>
     </section>

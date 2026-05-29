@@ -3,8 +3,8 @@
 import { Suspense, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { VehicleCard } from "@/components/vehicles/VehicleCard";
-import { VehicleTable } from "@/app/system/_components/VehicleTable";
-import { DashboardFilters } from "@/app/system/_components/DashboardFilters";
+import { VehicleTable } from "@/app/admin/_components/VehicleTable";
+import { DashboardFilters } from "@/app/admin/_components/DashboardFilters";
 import { DeleteDialog } from "@/components/dashboard/DeleteDialog";
 import { Input } from "@/components/ui/input";
 import type { Vehicle } from "@/lib/vehicles/type";
@@ -83,7 +83,7 @@ function VehiclesDashboard() {
   }, [localSearch]);
 
   const handleEdit = (vehicle: Vehicle) => {
-    router.push(`/system/vehicles/${vehicle.id}/editar`);
+    router.push(`/admin/vehicles/${vehicle.id}/editar`);
   };
 
   const handleDeleteRequest = (vehicle: Vehicle) => {
@@ -126,7 +126,7 @@ function VehiclesDashboard() {
             </p>
           </div>
           <Link
-            href="/system/vehicle-new"
+            href="/admin/vehicle-new"
             className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-semibold text-background hover:opacity-90"
           >
             <PlusCircle className="h-4 w-4" /> Novo veículo

@@ -100,22 +100,6 @@ export function StatsCards() {
           </p>
         </div>
       </div>
-
-      {/* Leads / Total */}
-      <div className="rounded-sm border border-border bg-card dark:bg-black  p-6 shadow-sm">
-        <div className="flex flex-row items-center justify-between pb-2">
-          <h3 className="text-sm font-medium text-muted-foreground tracking-tight">
-            Leads WhatsApp
-          </h3>
-          <MessageCircle className="h-4 w-4 text-muted-foreground" />
-        </div>
-        <div>
-          <div className="text-2xl font-bold font-display">+124</div>
-          <p className="text-xs text-muted-foreground mt-1 text-whatsapp">
-            +14% vs último mês
-          </p>
-        </div>
-      </div>
     </div>
   );
 }

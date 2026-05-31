@@ -13,11 +13,11 @@ export function Footer() {
         <div className="flex flex-col gap-6 lg:pr-8">
           <Link href="/" className="inline-block">
             <Image
-              src="/ICG.svg"
+              src="/ICG-LOGO-black.png"
               alt="ICG Logo"
               width={120}
               height={120}
-              className="object-contain dark:invert-0"
+              className="object-contain"
             />
           </Link>
           <p className="text-sm text-muted-foreground leading-relaxed">

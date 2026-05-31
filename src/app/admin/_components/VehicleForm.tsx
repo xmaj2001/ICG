@@ -124,13 +124,13 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
   };
 
   return (
-    <div className="mx-auto max-w-4xl p-6">
+    <div className="mx-auto max-w-4xl px-3 py-4 sm:p-6">
       <div className="flex items-center gap-4 mb-8">
         <Button variant="outline" size="icon" onClick={() => router.back()}>
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div>
-          <h1 className="text-3xl font-display font-medium">
+          <h1 className="text-xl sm:text-3xl font-display font-medium">
             {isEdit ? "Editar Veículo" : "Adicionar Novo Veículo"}
           </h1>
           <p className="text-muted-foreground mt-1 text-sm">
@@ -140,8 +140,11 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
         </div>
       </div>
 
-      <div className="rounded-xl border border-border bg-card p-6">
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <div className="sm:p-6">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col gap-6 sm:gap-8"
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Controller
               control={form.control}
@@ -395,7 +398,7 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
           <div className="space-y-4">
             <FieldLabel>Imagens do Veículo</FieldLabel>
 
-            <div className="relative flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-gold/50 rounded-xl hover:bg-gold/5 transition-colors">
+            <div className="relative flex flex-col items-center justify-center w-full h-32 sm:h-40 border-2 border-dashed border-gold/50 rounded-xl hover:bg-gold/5 transition-colors">
               <input
                 type="file"
                 accept="image/jpeg, image/png, image/webp"
@@ -421,11 +424,11 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
 
             {/* Image Previews */}
             {images.length > 0 && (
-              <div className="flex gap-4 overflow-x-auto py-2">
+              <div className="flex gap-3 sm:gap-4 overflow-x-auto py-2">
                 {images.map((url, i) => (
                   <div
                     key={i}
-                    className="relative w-32 h-32 shrink-0 rounded-lg overflow-hidden group"
+                    className="relative w-20 h-20 sm:w-32 sm:h-32 shrink-0 rounded-lg overflow-hidden group"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img

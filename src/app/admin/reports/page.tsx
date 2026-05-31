@@ -2,11 +2,11 @@ import { BarChart3, TrendingUp } from "lucide-react";
 
 export default function RelatoriosPage() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       <div className="flex flex-1 flex-col">
-        <div className="flex flex-1 flex-col gap-2 p-4 md:gap-6 md:p-6">
-          <div className="mb-4">
-            <h1 className="font-display text-4xl">Relatórios</h1>
+        <div className="flex flex-1 flex-col gap-4 sm:gap-6 p-4 sm:p-6">
+          <div className="mb-4 sm:mb-8">
+            <h1 className="font-display text-3xl sm:text-4xl">Relatórios</h1>
             <p className="mt-2 text-sm text-muted-foreground">
               Visão geral do desempenho de vendas e inventário.
             </p>

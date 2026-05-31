@@ -4,6 +4,8 @@ import { Suspense } from "react";
 import { Navbar } from "@/components/Navbar";
 import { SearchContent } from "./_components/search-content";
 import { SearchSkeleton } from "./_components/search-skeleton";
+import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
+import { SettingsService } from "@/lib/settings/services/settings-service";
 
 /* ─── Dynamic SEO Metadata ─── */
 interface SearchPageProps {
@@ -34,7 +36,8 @@ export async function generateMetadata({
 }
 
 /* ─── Page Component (static shell) ─── */
-export default function SearchPage({ searchParams }: SearchPageProps) {
+export default async function SearchPage({ searchParams }: SearchPageProps) {
+  const settings = await SettingsService.getSettings();
   return (
     <>
       <Navbar />
@@ -43,6 +46,7 @@ export default function SearchPage({ searchParams }: SearchPageProps) {
           <SearchContent searchParamsPromise={searchParams} />
         </Suspense>
       </main>
+      <FloatingWhatsApp whatsAppNumber={settings.whatsappNumber ?? ""} />
     </>
   );
 }

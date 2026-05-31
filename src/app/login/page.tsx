@@ -12,7 +12,6 @@ async function signedFetch(path: string, body: Record<string, string>) {
   const method = "POST";
   const timestamp = Date.now();
   const rawBody = JSON.stringify(body);
-  console.log("body", body);
   // const signature = signRequest(method, path, timestamp, rawBody);
   return fetch(path, {
     method,
@@ -39,9 +38,7 @@ export default function LoginPage() {
     const formData = new FormData(e.target as HTMLFormElement);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
-    console.log("form", email, password);
     try {
-      console.log("Signing in with:", email, password);
       const res = await signedFetch("/api/auth/login", { email, password });
       const data = await res.json();
 

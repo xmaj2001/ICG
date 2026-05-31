@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { SettingsService } from "@/lib/settings/services/settings-service";
-import { checkHmac, checkHmacWithBody } from "@/lib/hmac";
 import { getAuthSession } from "@/lib/auth-session";
 
 export async function GET(request: NextRequest) {

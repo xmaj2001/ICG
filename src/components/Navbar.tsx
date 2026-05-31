@@ -36,7 +36,7 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-40 w-full flex flex-col bg-background shadow-sm">
       {/* Nível 1: Topo */}
-      <div className="bg-card">
+      <div className="bg-background">
         <div className="mx-auto flex h-20 max-w-[1400px] items-center justify-between px-4 sm:px-6 gap-4">
           {/* Esquerda: Logo */}
           <Link

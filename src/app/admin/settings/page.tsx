@@ -50,16 +50,16 @@ export default function ConfiguracoesPage() {
   return (
     <div className="space-y-8">
       <div className="flex flex-1 flex-col">
-        <div className="flex flex-1 flex-col gap-2 p-4 md:gap-6 md:p-6">
-          <div className="mb-4">
-            <h1 className="font-display text-4xl">Configurações</h1>
+        <div className="flex flex-1 flex-col gap-4 sm:gap-6 p-4 sm:p-6">
+          <div className="mb-4 sm:mb-6">
+            <h1 className="font-display text-2xl sm:text-4xl">Configurações</h1>
             <p className="mt-2 text-sm text-muted-foreground">
               Gerir preferências e dados do sistema.
             </p>
           </div>
 
-          <div className="max-w-2xl">
-            <div className="rounded-xl border border-border bg-card overflow-hidden shadow-sm">
+          <div className="w-full max-w-2xl">
+            <div className="overflow-hidden shadow-sm">
               <div className="p-6 border-b border-border">
                 <h2 className="font-display text-xl">Contacto e Integrações</h2>
                 <p className="text-sm text-muted-foreground mt-1">
@@ -72,7 +72,7 @@ export default function ConfiguracoesPage() {
                   <div className="space-y-2">
                     <Label htmlFor="whatsapp">Número do WhatsApp</Label>
                     <div className="flex gap-4">
-                      <div className="relative flex-1 max-w-sm">
+                      <div className="relative w-full sm:max-w-sm">
                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
                           +
                         </span>
@@ -96,7 +96,7 @@ export default function ConfiguracoesPage() {
                   <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
                     <div className="flex gap-4">
-                      <div className="relative flex-1 max-w-sm">
+                      <div className="relative w-full sm:max-w-sm">
                         <Input
                           id="email"
                           value={email}
@@ -116,7 +116,7 @@ export default function ConfiguracoesPage() {
                   <div className="space-y-2">
                     <Label htmlFor="address">Endereço</Label>
                     <div className="flex gap-4">
-                      <div className="relative flex-1 max-w-sm">
+                      <div className="relative w-full sm:max-w-sm">
                         <Input
                           id="address"
                           value={address}
@@ -137,7 +137,7 @@ export default function ConfiguracoesPage() {
                     <Button
                       type="submit"
                       disabled={isLoading || isSaving || !whatsappNumber}
-                      className="dark:bg-white bg-black dark:hover:bg-white/80 hover:bg-black/50 text-background px-6"
+                      className="w-full sm:w-auto dark:bg-white bg-black dark:hover:bg-white/80 hover:bg-black/50 text-background px-6"
                     >
                       {isSaving ? (
                         <>

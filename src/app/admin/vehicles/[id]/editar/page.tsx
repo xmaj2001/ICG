@@ -15,8 +15,8 @@ async function EditarVeiculoContent({
 
   if (!vehicle) {
     return (
-      <div className="mx-auto mt-20 w-full max-w-4xl p-6 text-center">
-        <h2 className="mb-4 font-display text-2xl">Veículo não encontrado</h2>
+      <div className="mx-auto mt-20 w-full max-w-4xl p-4 sm:p-6 text-center">
+        <h2 className="mb-4 font-display text-xl sm:text-2xl">Veículo não encontrado</h2>
       </div>
     );
   }

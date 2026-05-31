@@ -4,6 +4,7 @@ import { ModeToggle } from '@/components/ModeToggle'
 import { Store } from 'lucide-react'
 import Link from 'next/link'
 import { SystemNavLinks } from './SystemNavLinks'
+import { MobileSidebar } from './_components/MobileSidebar'
 import { Suspense } from 'react'
 
 async function SystemLayoutContent({
@@ -37,13 +38,16 @@ async function SystemLayoutContent({
         </Link>
       </aside>
       <div className="flex flex-1 flex-col rounded-3xl border border-border bg-background">
-        <header className="flex h-14 items-center justify-between border-b border-border px-6">
-          <h2 className="text-sm font-medium text-muted-foreground">
-            Painel administrativo — {session.email}
-          </h2>
+        <header className="flex h-14 items-center justify-between border-b border-border px-4 md:px-6">
+          <div className="flex items-center gap-3">
+            <MobileSidebar />
+            <h2 className="text-xs sm:text-sm font-medium text-muted-foreground truncate">
+              Painel — {session.email}
+            </h2>
+          </div>
           <ModeToggle />
         </header>
-        <main className="flex-1 p-6 md:p-10">{children}</main>
+        <main className="flex-1 p-4 md:p-10">{children}</main>
       </div>
     </div>
   )

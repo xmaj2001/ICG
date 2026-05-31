@@ -18,8 +18,8 @@ export function EditarVeiculoClient({
 
   if (isLoading) {
     return (
-      <div className="mx-auto w-full max-w-4xl space-y-8 p-6">
-        <div className="flex items-center gap-4 mb-8">
+      <div className="mx-auto w-full max-w-4xl space-y-6 sm:space-y-8 p-4 sm:p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6 sm:mb-8">
           <Skeleton className="h-10 w-10" />
           <div className="space-y-2">
             <Skeleton className="h-8 w-64" />
@@ -33,9 +33,9 @@ export function EditarVeiculoClient({
 
   if (!vehicle && !isLoading) {
     return (
-      <div className="mx-auto mt-20 w-full max-w-4xl p-6 text-center">
-        <h2 className="mb-4 font-display text-2xl">Veículo não encontrado</h2>
-        <Button onClick={() => router.push("/admin/vehicles")}>
+      <div className="mx-auto mt-20 w-full max-w-4xl p-4 sm:p-6 text-center">
+        <h2 className="mb-4 font-display text-xl sm:text-2xl">Veículo não encontrado</h2>
+        <Button onClick={() => router.push("/admin/vehicles")} className="w-full sm:w-auto">
           Voltar ao Inventário
         </Button>
       </div>

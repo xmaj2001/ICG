@@ -5,6 +5,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { MessageCircle, X } from "lucide-react";
 import { Vehicle } from "@/lib/vehicles/type";
 import { buildWhatsAppUrl } from "@/lib/constants";
+import Image from "next/image";
 
 function isMobile() {
   if (typeof navigator === "undefined") return false;
@@ -51,7 +52,7 @@ export function WhatsAppButton({
         onClick={handleClick}
         className={`inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#1ebe57] ${className}`}
       >
-        <MessageCircle className="h-4 w-4" />
+        <Image src="/whatsapp.svg" alt="WhatsApp" width={25} height={25} />
         {label}
       </a>
 
@@ -89,7 +90,12 @@ export function WhatsAppButton({
               rel="noopener noreferrer"
               className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1ebe57]"
             >
-              <MessageCircle className="h-4 w-4" />
+              <Image
+                src="/whatsapp.svg"
+                alt="WhatsApp"
+                width={25}
+                height={25}
+              />
               Abrir WhatsApp Web
             </a>
           </div>

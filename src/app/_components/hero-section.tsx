@@ -102,22 +102,27 @@ function HeroSlide({
 }) {
   return (
     <div className="relative min-w-0 shrink-0 grow-0 basis-full">
-      <div
-        className={cn(
-          "relative flex h-[600px] flex-col overflow-hidden bg-linear-to-br md:h-[680px] md:flex-row md:items-center",
+      <div className="relative flex h-[600px] flex-col overflow-hidden bg-neutral-950 md:h-[680px] md:flex-row md:items-center">
+        {/* Imagem de Fundo de Alta Performance (Substitui o CSS inline problemático no Mobile) */}
+        {vehicle.images[0] && (
+          <div className="absolute inset-0 z-0 pointer-events-none">
+            <Image
+              src={vehicle.images[0]}
+              alt={`${vehicle.brand} ${vehicle.model}`}
+              fill
+              sizes="100vw"
+              className="object-cover object-center"
+              priority={index === 0}
+              loading={index === 0 ? undefined : "lazy"}
+            />
+          </div>
         )}
-        style={{
-          backgroundImage: `url(${vehicle.images[0]})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundAttachment: "fixed",
-        }}
-      >
-        {/* Overlay */}
-        <div className="absolute inset-0 z-10 bg-black/40" />
-        {/* ── Content Side ── */}
-        <div className="hidden md:flex relative z-10 flex-1 flex-col justify-center px-6 pb-4 pt-24 md:px-16 md:py-20 lg:px-24">
+
+        {/* Overlay para contraste */}
+        <div className="absolute inset-0 z-10 bg-black/50 md:bg-black/40" />
+
+        {/* ── Content Side (Desktop) ── */}
+        <div className="hidden md:flex relative z-20 flex-1 flex-col justify-center px-6 pb-4 pt-24 md:px-16 md:py-20 lg:px-24">
           {/* Category badge */}
           <span className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-black px-4 py-1.5 text-[10px] font-medium uppercase tracking-[0.2em] text-white/60 backdrop-blur-sm">
             {vehicle.category}
@@ -195,18 +200,21 @@ function HeroSlide({
           </div>
         </div>
 
-        {/* ── Image Side ── */}
-        <div className="relative h-full z-10 flex flex-1 items-center justify-center px-6 pb-20 md:px-8 md:pb-0">
+        {/* ── Image Side (Destaque Central no Desktop) ── */}
+        <div className="mb-25 flex relative h-full z-20 flex-1 items-center justify-center px-6 md:px-8">
           <div
             className={cn(
-              "relative flex w-full max-w-md items-center justify-center md:max-w-lg",
+              "relative flex w-full max-w-md items-center justify-center transition-all duration-700 md:max-w-lg",
+              isActive
+                ? "translate-x-0 scale-100 opacity-100"
+                : "translate-x-8 scale-95 opacity-0",
             )}
           >
             {/* Glow behind car */}
             <div className="absolute inset-0 -z-10 scale-110 bg-foreground/10 blur-3xl" />
 
             {vehicle.images[0] && (
-              <div className="relative z-10 border border-white/10 h-full w-full p-2 rounded-sm">
+              <div className="relative z-10 border border-white/10 h-full w-full p-2 rounded-sm backdrop-blur-xs bg-black/20">
                 <Image
                   src={vehicle.images[0]}
                   width={1920}
@@ -248,30 +256,32 @@ function ContentMobile({
   return (
     <div
       className={cn(
-        "w-full absolute bottom-8 left-0 right-0 z-20 px-6 transition-all duration-700 md:hidden",
+        "w-full absolute bottom-8 left-0 right-0 z-30 px-6 transition-all duration-700 md:hidden",
+        isActive ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0",
       )}
     >
-      <div className="flex flex-col gap-3 bg-black/10 p-4 backdrop-blur-md dark:bg-white/70">
+      {/* Cores fixas escuras com desfoque para contraste impecável em cima de qualquer imagem */}
+      <div className="flex flex-col gap-3 rounded-2xl bg-black/60 p-5 border border-white/10 backdrop-blur-md">
         {/* Title & Price */}
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h2 className="text-xl font-bold leading-tight text-card">
+            <h2 className="text-xl font-bold leading-tight text-white">
               {vehicle.brand}
               <br />
-              <span className="text-lg font-medium text-white/90 dark:text-black/90">
+              <span className="text-base font-medium text-white/70">
                 {vehicle.model}
               </span>
             </h2>
           </div>
           <div className="text-right">
-            <p className="text-lg font-bold text-card">
+            <p className="text-xl font-bold text-white">
               {formatPrice(vehicle.price)}
             </p>
           </div>
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-2 border-y border-card/10 py-3">
+        <div className="grid grid-cols-3 gap-2 border-y border-white/10 py-3">
           <MobileStat value={`${vehicle.engineSize}L`} label="Motor" />
           <MobileStat value={vehicle.transmission} label="Transmissão" />
           <MobileStat value={`${vehicle.year}`} label="Ano" />
@@ -280,7 +290,7 @@ function ContentMobile({
         {/* Action */}
         <Link
           href={`/veiculo/${vehicle.id}`}
-          className="flex w-full items-center justify-center gap-2 rounded-full bg-card py-3 text-sm font-semibold text-foreground transition-all hover:bg-card/90"
+          className="flex w-full items-center justify-center gap-2 rounded-full bg-white py-3 text-sm font-semibold text-black active:scale-[0.99] transition-transform"
         >
           Ver detalhes
           <ArrowRight className="size-4" />
@@ -294,8 +304,8 @@ function ContentMobile({
 function MobileStat({ value, label }: { value: string; label: string }) {
   return (
     <div className="text-center">
-      <div className="text-sm font-bold text-card">{value}</div>
-      <div className="mt-0.5 text-[9px] uppercase tracking-wider text-card/50">
+      <div className="text-sm font-bold text-white">{value}</div>
+      <div className="mt-0.5 text-[9px] uppercase tracking-wider text-white/40">
         {label}
       </div>
     </div>

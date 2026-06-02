@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/sheet";
 import type { Vehicle } from "@/lib/vehicles/type";
 import { deleteVehicle } from "@/lib/vehicles/use-case/delete-vehicle";
+import { deleteCloudinaryImages } from "@/lib/cloudinary/use-case/delete-cloudinary-images";
 import { useVehicles } from "@/lib/vehicles/hooks";
 import {
   LayoutGrid,
@@ -104,8 +105,15 @@ function VehiclesDashboard() {
     try {
       setIsDeleting(true);
       await deleteVehicle(selectedVehicle.id);
+
+      // Eliminar as imagens do Cloudinary para não ocupar espaço
+      if (selectedVehicle.images && selectedVehicle.images.length > 0) {
+        await deleteCloudinaryImages(selectedVehicle.images);
+      }
+
       setIsDeleteDialogOpen(false);
       setSelectedVehicle(null);
+
       mutate();
       toast.success("Veículo eliminado com sucesso!");
     } catch (error) {

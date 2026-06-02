@@ -15,10 +15,7 @@ export function proxy(request: NextRequest) {
   if (pathname === "/login" && isTokenExpired) {
     const response = NextResponse.next();
     response.cookies.delete("auth-token"); // Remove o cookie inválido no browser
-    // return response;
-    const url = new URL("/login", request.url);
-    url.searchParams.set("redirect", pathname);
-    return NextResponse.redirect(url);
+    return response;
   }
 
   // Protege /admin e /dashboard

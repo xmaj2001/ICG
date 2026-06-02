@@ -17,7 +17,7 @@ async function SystemLayoutContent({
   if (!session) redirect("/login?expired=true");
 
   return (
-    <div className="flex min-h-screen bg-card text-foreground">
+    <div className="flex min-h-screen w-full">
       <aside className="hidden w-64 shrink-0 flex-col border-border bg-card p-4 md:flex">
         <Link href="/" className="mb-8 flex items-center gap-2 px-2 py-3">
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-foreground text-background">

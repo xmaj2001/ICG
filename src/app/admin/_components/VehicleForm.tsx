@@ -125,8 +125,13 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
 
   return (
     <div className="mx-auto max-w-4xl px-3 py-4 sm:p-6">
-      <div className="flex items-center gap-4 mb-8">
-        <Button variant="outline" size="icon" onClick={() => router.back()}>
+      <div className="flex items-center gap-4 mb-8 ">
+        <Button
+          variant="default"
+          size="icon"
+          className="animate-pulse"
+          onClick={() => router.back()}
+        >
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div>

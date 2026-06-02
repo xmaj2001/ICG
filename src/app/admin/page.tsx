@@ -5,7 +5,7 @@ import { RecentVehiclesTable } from "./_components/RecentVehiclesTable";
 
 export default function Dashboard() {
   return (
-    <div className="space-y-6 sm:space-y-8">
+    <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold">Dashboard</h1>

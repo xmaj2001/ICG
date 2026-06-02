@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Car, Tag, HardDrive, MessageCircle } from "lucide-react";
+import { Car, Tag, HardDrive } from "lucide-react";
 import {
   getStats,
   type DashboardStats,
@@ -62,7 +62,9 @@ export function StatsCards() {
           <Car className="h-4 w-4 text-muted-foreground" />
         </div>
         <div>
-          <div className="text-2xl sm:text-3xl font-bold font-display">{stats.inStock}</div>
+          <div className="text-2xl sm:text-3xl font-bold font-display">
+            {stats.inStock}
+          </div>
           <p className="text-[10px] sm:text-xs text-muted-foreground mt-1 text-whatsapp line-clamp-1">
             Disponíveis para venda
           </p>
@@ -81,7 +83,9 @@ export function StatsCards() {
           <div className="text-2xl sm:text-3xl font-bold font-display">
             {stats.soldThisMonth}
           </div>
-          <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">Este mês</p>
+          <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">
+            Este mês
+          </p>
         </div>
       </div>
 

@@ -49,6 +49,7 @@ function VehiclesDashboard() {
     category: searchParams.get("category") || undefined,
     fuel: searchParams.get("fuel") || undefined,
     transmission: searchParams.get("transmission") || undefined,
+    vehicleType: searchParams.get("vehicleType") || undefined,
     status: searchParams.get("status") || undefined,
     minYear: searchParams.get("minYear")
       ? Number(searchParams.get("minYear"))
@@ -130,6 +131,7 @@ function VehiclesDashboard() {
     searchParams.get("category"),
     searchParams.get("fuel"),
     searchParams.get("transmission"),
+    searchParams.get("vehicleType"),
     searchParams.get("status"),
     searchParams.get("minYear"),
     searchParams.get("minPrice"),

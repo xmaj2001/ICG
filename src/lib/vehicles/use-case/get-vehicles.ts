@@ -10,6 +10,7 @@ interface GetVehiclesInput {
   brand?: string;
   fuel?: string;
   transmission?: string;
+  vehicleType?: string;
   minYear?: number;
   maxYear?: number;
   minPrice?: number;
@@ -27,6 +28,7 @@ export const getVehicles = async (
     brand,
     fuel,
     transmission,
+    vehicleType,
     minYear,
     maxYear,
     minPrice,
@@ -42,6 +44,7 @@ export const getVehicles = async (
   if (brand) params.set("brand", brand);
   if (fuel) params.set("fuel", fuel);
   if (transmission) params.set("transmission", transmission);
+  if (vehicleType) params.set("vehicleType", vehicleType);
   if (minYear) params.set("minYear", minYear.toString());
   if (maxYear) params.set("maxYear", maxYear.toString());
   if (minPrice) params.set("minPrice", minPrice.toString());

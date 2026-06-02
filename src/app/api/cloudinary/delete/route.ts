@@ -1,15 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
-import { checkHmacWithBody } from '@/lib/hmac'
-import { getAuthSession } from '@/lib/auth-session'
+import { checkHmacWithBody } from "@/lib/hmac";
+import { getAuthSession } from "@/lib/auth-session";
 
 export async function POST(req: NextRequest) {
-  const rawBody = await req.text()
+  const rawBody = await req.text();
   // const hmacError = await checkHmacWithBody(req, rawBody)
   // if (hmacError) return hmacError
 
-  try { await getAuthSession() }
-  catch { return NextResponse.json({ error: 'Não autorizado' }, { status: 401 }) }
+  try {
+    await getAuthSession();
+  } catch {
+    return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+  }
 
   try {
     const { publicIds } = JSON.parse(rawBody);
@@ -31,6 +34,9 @@ export async function POST(req: NextRequest) {
 
     const timestamp = Math.round(Date.now() / 1000);
 
+    // A imagem é assim : https://res.cloudinary.com/dzf0t47a8/image/upload/v1754049702/o1wipfsq0r43iwrn6x2d.jpg
+    // o public_id é o que vem depois de "upload/" e antes de ".jpg"
+    console.log("teste log:", publicIds);
     const results = await Promise.all(
       publicIds.map(async (publicId) => {
         const paramsToSign = `public_id=${publicId}&timestamp=${timestamp}`;

@@ -62,7 +62,7 @@ export const VehicleService = {
     "use cache";
     cacheLife("minutes");
     cacheTag(TAG_VEHICLES);
-
+    console.log("teste log:", filters);
     let q: FirebaseFirestore.Query = adminDb.collection(COLLECTION_NAME);
 
     if (filters.brand && filters.brand !== "all" && filters.brand !== "Todos") {

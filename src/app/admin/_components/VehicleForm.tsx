@@ -19,6 +19,7 @@ import {
 import { useImageUpload } from "@/hooks/use-image-upload";
 import { createVehicle } from "@/lib/vehicles/use-case/create-vehicle";
 import { updateVehicle } from "@/lib/vehicles/use-case/update-vehicle";
+import { deleteCloudinaryImages } from "@/lib/cloudinary/use-case/delete-cloudinary-images";
 
 import { Field, FieldLabel, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -43,6 +44,7 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
   const [images, setImages] = useState<string[]>([]);
   const { upload, isUploading } = useImageUpload();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [imagesToDelete, setImagesToDelete] = useState<string[]>([]);
 
   const form = useForm<z.infer<typeof VehicleFormSchema>>({
     resolver: zodResolver(VehicleFormSchema) as any,
@@ -110,10 +112,16 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
   };
 
   const removeImage = (index: number) => {
+    if (images.length <= 1) {
+      toast.error("O veículo tem de ter pelo menos uma imagem.");
+      return;
+    }
+    const removedImage = images[index];
     const newImages = [...images];
     newImages.splice(index, 1);
     setImages(newImages);
     form.setValue("images", newImages, { shouldValidate: true });
+    setImagesToDelete((prev) => [...prev, removedImage]);
   };
 
   const onSubmit = async (data: any) => {
@@ -126,16 +134,27 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
         await createVehicle(data);
         toast.success("Veículo criado com sucesso!");
       }
+
+      if (imagesToDelete.length > 0) {
+        try {
+          await deleteCloudinaryImages(imagesToDelete);
+        } catch (err) {
+          console.error("Failed to delete removed images", err);
+        }
+      }
+
       router.push("/admin/vehicles");
     } catch (error) {
       console.error("Failed to save vehicle", error);
       toast.error("Ocorreu um erro ao guardar o veículo.");
       form.reset();
       setImages([]);
+      setImagesToDelete([]);
     } finally {
       setIsSubmitting(false);
       form.reset();
       setImages([]);
+      setImagesToDelete([]);
     }
   };
 

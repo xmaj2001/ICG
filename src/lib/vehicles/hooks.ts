@@ -9,6 +9,7 @@ interface UseVehiclesParams {
   category?: string;
   fuel?: string;
   transmission?: string;
+  vehicleType?: string;
   minYear?: number;
   maxYear?: number;
   minPrice?: number;

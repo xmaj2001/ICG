@@ -26,6 +26,8 @@ export async function GET(request: NextRequest) {
       maxPrice: searchParams.get("maxPrice")
         ? parseInt(searchParams.get("maxPrice")!, 10)
         : undefined,
+      status: searchParams.get("status") || undefined,
+      vehicleType: searchParams.get("vehicleType") || undefined,
     };
     const pagination = {
       limitSize: parseInt(searchParams.get("limit") || "10", 10),

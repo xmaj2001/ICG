@@ -1,20 +1,20 @@
-import { redirect } from 'next/navigation'
-import { getAuthSessionOrNull } from '@/lib/auth-session'
-import { ModeToggle } from '@/components/ModeToggle'
-import { Store } from 'lucide-react'
-import Link from 'next/link'
-import { SystemNavLinks } from './SystemNavLinks'
-import { MobileSidebar } from './_components/MobileSidebar'
-import { Suspense } from 'react'
+import { redirect } from "next/navigation";
+import { getAuthSessionOrNull } from "@/lib/auth-session";
+import { ModeToggle } from "@/components/ModeToggle";
+import { Store } from "lucide-react";
+import Link from "next/link";
+import { SystemNavLinks } from "./SystemNavLinks";
+import { MobileSidebar } from "./_components/MobileSidebar";
+import { Suspense } from "react";
 
 async function SystemLayoutContent({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   // Verificação real do token Firebase — se expirou ou foi adulterado, redireciona
-  const session = await getAuthSessionOrNull()
-  if (!session) redirect('/login')
+  const session = await getAuthSessionOrNull();
+  if (!session) redirect("/login?expired=true");
 
   return (
     <div className="flex min-h-screen bg-card text-foreground">
@@ -27,7 +27,7 @@ async function SystemLayoutContent({
             ICG ADMIN
           </span>
         </Link>
-        
+
         <SystemNavLinks />
 
         <Link
@@ -50,17 +50,23 @@ async function SystemLayoutContent({
         <main className="flex-1 p-4 md:p-10">{children}</main>
       </div>
     </div>
-  )
+  );
 }
 
 export default function SystemLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
-    <Suspense fallback={<div className="flex min-h-screen items-center justify-center">A carregar painel...</div>}>
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center">
+          A carregar painel...
+        </div>
+      }
+    >
       <SystemLayoutContent>{children}</SystemLayoutContent>
     </Suspense>
-  )
+  );
 }

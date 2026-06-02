@@ -1,5 +1,6 @@
 import { Calendar, Fuel, Gauge, Zap } from "lucide-react";
 import type { Vehicle } from "@/lib/vehicles/type";
+import { formatEngineSize } from "@/lib/vehicles/type";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { formatDate, formatPrice } from "@/lib/utils";
 
@@ -27,7 +28,7 @@ export function Info({ vehicle, whatsappNumber }: InfoProps) {
         <Spec
           icon={<Zap className="h-4 w-4" />}
           label="Motor"
-          value={`${vehicle.engineSize}`}
+          value={formatEngineSize(vehicle)}
         />
         <Spec
           icon={<Calendar className="h-4 w-4" />}

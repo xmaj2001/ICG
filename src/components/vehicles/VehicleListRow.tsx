@@ -1,4 +1,4 @@
-import type { Vehicle } from "@/lib/vehicles/type";
+import { formatEngineSize, type Vehicle } from "@/lib/vehicles/type";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
@@ -31,7 +31,7 @@ export function VehicleListRow({ vehicle }: { vehicle: Vehicle }) {
         </div>
         <div className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-xs text-muted-foreground">
           <span>
-            Motor: <b className="text-foreground">{vehicle.engineSize}</b>
+            Motor: <b className="text-foreground">{formatEngineSize(vehicle)}</b>
           </span>
           <span>
             Transmissão:{" "}

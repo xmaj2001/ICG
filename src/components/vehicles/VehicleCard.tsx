@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Vehicle } from "@/lib/vehicles/type";
+import { formatEngineSize } from "@/lib/vehicles/type";
 import { ArrowUpRight } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 
@@ -42,7 +43,7 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
         </div>
 
         <div className="mt-auto grid grid-cols-3 gap-2 border-t border-black/10 pt-4 text-center">
-          <Stat value={`${vehicle.engineSize}`} label="Motor" />
+          <Stat value={formatEngineSize(vehicle)} label="Motor" />
           <Stat value={vehicle.transmission} label="Transmissão" />
           <Stat value={`${vehicle.year}`} label="Ano" />
         </div>

@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/accordion";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
-import { Fuel, Transmission, Category, Status } from "@/lib/vehicles/type";
+import { Fuel, Transmission, Category, Status, VehicleType } from "@/lib/vehicles/type";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export function DashboardFilters() {
@@ -87,6 +87,7 @@ export function DashboardFilters() {
         <Accordion
           type="multiple"
           defaultValue={[
+            "vehicleType",
             "status",
             "category",
             "fuel",
@@ -96,6 +97,32 @@ export function DashboardFilters() {
           ]}
           className="w-full"
         >
+          {/* Tipo de Veículo */}
+          <AccordionItem value="vehicleType">
+            <AccordionTrigger className="text-base font-semibold">
+              Tipo
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="flex flex-col gap-3 pt-2">
+                {Object.values(VehicleType).map((vt) => (
+                  <label
+                    key={vt}
+                    htmlFor={`vehicleType-${vt}`}
+                    className="flex items-center gap-3 cursor-pointer group"
+                  >
+                    <Checkbox
+                      id={`vehicleType-${vt}`}
+                      checked={isChecked("vehicleType", vt)}
+                      onCheckedChange={() => toggleArrayParam("vehicleType", vt)}
+                      className="border-neutral-400 group-hover:border-gold data-[state=checked]:bg-gold data-[state=checked]:border-gold"
+                    />
+                    <span className="text-sm font-medium">{vt}</span>
+                  </label>
+                ))}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+
           {/* Status */}
           <AccordionItem value="status">
             <AccordionTrigger className="text-base font-semibold">

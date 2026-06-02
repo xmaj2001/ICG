@@ -4,7 +4,7 @@ import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useCallback, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Search, SlidersHorizontal, X } from "lucide-react";
-import { Fuel, Transmission, Category } from "@/lib/vehicles/type";
+import { Fuel, Transmission, Category, VehicleType } from "@/lib/vehicles/type";
 import {
   Combobox,
   ComboboxContent,
@@ -22,6 +22,7 @@ import {
 const FUELS = Object.values(Fuel);
 const TRANSMISSIONS = Object.values(Transmission);
 const CATEGORIES = Object.values(Category);
+const VEHICLE_TYPES = Object.values(VehicleType);
 
 /* ─── Component ─── */
 interface FiltersProps {
@@ -46,6 +47,8 @@ export function Filters({ brands }: FiltersProps) {
     searchParams.get("transmission")?.split(",").filter(Boolean) ?? [];
   const currentCategories =
     searchParams.get("category")?.split(",").filter(Boolean) ?? [];
+  const currentVehicleTypes =
+    searchParams.get("vehicleType")?.split(",").filter(Boolean) ?? [];
   const currentMinPrice = searchParams.get("minPrice") ?? "";
   const currentMaxPrice = searchParams.get("maxPrice") ?? "";
   const currentMinYear = searchParams.get("minYear") ?? "";
@@ -57,6 +60,7 @@ export function Filters({ brands }: FiltersProps) {
     currentFuels.length > 0 ||
     currentTransmissions.length > 0 ||
     currentCategories.length > 0 ||
+    currentVehicleTypes.length > 0 ||
     currentMinPrice ||
     currentMaxPrice ||
     currentMinYear ||
@@ -140,6 +144,28 @@ export function Filters({ brands }: FiltersProps) {
           className="w-full rounded-full border border-border bg-card py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-foreground/40"
         />
       </div>
+
+      {/* ─── Tipo de Veículo ─── */}
+      <FilterSection title="Tipo de Veículo">
+        <div className="flex flex-wrap gap-2">
+          {VEHICLE_TYPES.map((t) => {
+            const active = currentVehicleTypes.includes(t);
+            return (
+              <Button
+                key={t}
+                onClick={() => toggleArray("vehicleType", currentVehicleTypes, t)}
+                className={`rounded-full border px-3 py-1.5 text-xs transition ${
+                  active
+                    ? "border-foreground bg-foreground text-background"
+                    : "border-border bg-card text-foreground hover:border-foreground/40"
+                }`}
+              >
+                {t}
+              </Button>
+            );
+          })}
+        </div>
+      </FilterSection>
 
       {/* ─── Combustível ─── */}
       <FilterSection title="Combustível">

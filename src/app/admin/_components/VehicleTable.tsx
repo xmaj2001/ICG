@@ -1,8 +1,9 @@
 "use client";
 
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2, Car, Bike } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import type { Vehicle } from "@/lib/vehicles/type";
+import { VehicleType } from "@/lib/vehicles/type";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -77,6 +78,11 @@ function VehicleMobileCard({
             {vehicle.brand} {vehicle.model}
           </span>
           <span className="text-xs text-muted-foreground truncate">
+            {vehicle.vehicleType === VehicleType.MOTA ? (
+              <Bike className="inline h-3 w-3 mr-1" />
+            ) : (
+              <Car className="inline h-3 w-3 mr-1" />
+            )}
             {vehicle.category} • {vehicle.fuel} • {vehicle.year}
           </span>
           <div className="flex items-center gap-2 mt-0.5">
@@ -261,6 +267,11 @@ export function VehicleTable({
                       {vehicle.brand} {vehicle.model}
                     </span>
                     <span className="text-xs text-muted-foreground">
+                      {vehicle.vehicleType === VehicleType.MOTA ? (
+                        <Bike className="inline h-3 w-3 mr-1" />
+                      ) : (
+                        <Car className="inline h-3 w-3 mr-1" />
+                      )}
                       {vehicle.category} • {vehicle.fuel}
                     </span>
                   </div>

@@ -1,6 +1,11 @@
 import { z } from "zod";
 
 // Enums
+export enum VehicleType {
+  CARRO = "Carro",
+  MOTA = "Mota",
+}
+
 export enum Badge {
   NOVO = "NOVO",
   DESTAQUE = "DESTAQUE",
@@ -37,8 +42,9 @@ export const VehicleSchema = z.object({
   brand: z.string(),
   model: z.string(),
   year: z.number(),
-  price: z.number(), // renamed from priceUsd
-  engineSize: z.number(), // new field (liters)
+  price: z.number(),
+  engineSize: z.number(),
+  vehicleType: z.nativeEnum(VehicleType),
   createdAt: z.string(), // ISO date string
   updatedAt: z.string(), // ISO date string
   fuel: z.nativeEnum(Fuel),
@@ -51,3 +57,14 @@ export const VehicleSchema = z.object({
 });
 
 export type Vehicle = z.infer<typeof VehicleSchema>;
+
+/**
+ * Formats engine size with the correct unit based on vehicle type.
+ * Cars use Liters (L), Motorcycles use Cubic Centimeters (CC).
+ */
+export function formatEngineSize(vehicle: Vehicle): string {
+  if (vehicle.vehicleType === VehicleType.MOTA) {
+    return `${vehicle.engineSize}CC`;
+  }
+  return `${vehicle.engineSize}L`;
+}

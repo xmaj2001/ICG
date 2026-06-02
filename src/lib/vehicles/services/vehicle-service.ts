@@ -1,6 +1,6 @@
 import { adminDb } from "@/lib/firebase/admin";
 import { cacheLife, cacheTag, revalidateTag } from "next/cache";
-import type { Vehicle } from "@/lib/vehicles/type";
+import { VehicleType, type Vehicle } from "@/lib/vehicles/type";
 
 const COLLECTION_NAME = "vehicles";
 
@@ -16,6 +16,7 @@ export interface VehicleFilters {
   category?: string | null;
   fuel?: string | null;
   transmission?: string | null;
+  vehicleType?: string | null;
   minYear?: number;
   maxYear?: number;
   minPrice?: number;
@@ -39,6 +40,7 @@ const mapDocToVehicle = (
     year: data.year,
     price: data.price,
     engineSize: data.engineSize,
+    vehicleType: data.vehicleType ?? VehicleType.CARRO, // default for legacy docs
     fuel: data.fuel,
     transmission: data.transmission,
     category: data.category,
@@ -79,6 +81,12 @@ export const VehicleService = {
       const fuels = filters.fuel.split(",");
       if (fuels.length > 0 && fuels.length <= 10) {
         q = q.where("fuel", "in", fuels);
+      }
+    }
+    if (filters.vehicleType) {
+      const types = filters.vehicleType.split(",");
+      if (types.length > 0 && types.length <= 10) {
+        q = q.where("vehicleType", "in", types);
       }
     }
     if (filters.transmission) {

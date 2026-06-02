@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Fuel, Gauge } from "lucide-react";
 import type { Vehicle } from "@/lib/vehicles/type";
+import { formatEngineSize } from "@/lib/vehicles/type";
 import { formatPrice } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 import Autoplay from "embla-carousel-autoplay";
@@ -165,7 +166,7 @@ function HeroSlide({
           >
             <StatPill
               icon={<Gauge className="size-3.5" />}
-              label={`${vehicle.engineSize}L`}
+              label={formatEngineSize(vehicle)}
             />
             <StatPill label={vehicle.transmission} />
             <StatPill
@@ -282,7 +283,7 @@ function ContentMobile({
 
         {/* Stats */}
         <div className="grid grid-cols-3 gap-2 border-y border-white/10 py-3">
-          <MobileStat value={`${vehicle.engineSize}L`} label="Motor" />
+          <MobileStat value={formatEngineSize(vehicle)} label="Motor" />
           <MobileStat value={vehicle.transmission} label="Transmissão" />
           <MobileStat value={`${vehicle.year}`} label="Ano" />
         </div>

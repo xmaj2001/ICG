@@ -1,7 +1,15 @@
 import { z } from "zod";
-import { Fuel, Transmission, Category, Status, Badge } from "./vehicles/type";
+import {
+  Fuel,
+  Transmission,
+  Category,
+  Status,
+  Badge,
+  VehicleType,
+} from "./vehicles/type";
 
 export const VehicleFormSchema = z.object({
+  vehicleType: z.nativeEnum(VehicleType),
   brand: z.string().min(1, "Marca é obrigatória"),
   model: z.string().min(1, "Modelo é obrigatório"),
   year: z.coerce
@@ -12,7 +20,7 @@ export const VehicleFormSchema = z.object({
   engineSize: z.coerce
     .number()
     .min(0.1, "Cilindrada inválida")
-    .max(10, "Cilindrada inválida"),
+    .max(2000, "Cilindrada inválida"),
   fuel: z.nativeEnum(Fuel),
   transmission: z.nativeEnum(Transmission),
   category: z.nativeEnum(Category),

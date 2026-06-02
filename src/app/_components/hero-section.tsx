@@ -199,16 +199,13 @@ function HeroSlide({
         <div className="relative h-full z-10 flex flex-1 items-center justify-center px-6 pb-20 md:px-8 md:pb-0">
           <div
             className={cn(
-              "relative flex w-full max-w-md items-center justify-center transition-all duration-700 md:max-w-lg",
-              isActive
-                ? "translate-x-0 scale-100 opacity-100"
-                : "translate-x-8 scale-95 opacity-0",
+              "relative flex w-full max-w-md items-center justify-center md:max-w-lg",
             )}
           >
             {/* Glow behind car */}
             <div className="absolute inset-0 -z-10 scale-110 bg-foreground/10 blur-3xl" />
 
-            {vehicle.images[0] ? (
+            {vehicle.images[0] && (
               <div className="relative z-10 border border-white/10 h-full w-full p-2 rounded-sm">
                 <Image
                   src={vehicle.images[0]}
@@ -217,16 +214,6 @@ function HeroSlide({
                   alt={`${vehicle.brand} ${vehicle.model}`}
                   className="max-h-[400px] w-full rounded-sm object-cover md:max-h-[420px]"
                   loading={index === 0 ? "eager" : "lazy"}
-                />
-              </div>
-            ) : (
-              <div className="flex h-[280px] items-center justify-center md:h-[420px]">
-                <Image
-                  src="/ICG.svg"
-                  width={400}
-                  height={200}
-                  className="opacity-20 invert"
-                  alt="ICG Logo"
                 />
               </div>
             )}

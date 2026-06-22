@@ -13,17 +13,17 @@ export function Footer() {
         <div className="flex flex-col gap-6 lg:pr-8">
           <Link href="/" className="inline-block">
             <Image
-              src="/ICG-LOGO-black.png"
+              src="/logo2.jpg"
               alt="ICG Logo"
-              width={120}
-              height={120}
-              className="object-contain"
+              width={700}
+              height={700}
+              className="object-contain rounded-sm"
             />
           </Link>
           <p className="text-sm text-muted-foreground leading-relaxed">
             A International Car Group (ICG) é a sua parceira de confiança na
-            importação e venda de veículos premium e de luxo em Luanda, Angola.
-            Garantimos qualidade, exclusividade e excelência no atendimento.
+            importação, exportação e comercialização de veículos premium e de
+            luxo, sediada em Castelo Branco, Portugal.
           </p>
         </div>
 

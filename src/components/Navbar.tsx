@@ -13,6 +13,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
+import Image from "next/image";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -36,7 +37,7 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-40 w-full flex flex-col bg-background shadow-sm">
       {/* Nível 1: Topo */}
-      <div className="bg-background">
+      <div className="bg-background relative">
         <div className="mx-auto flex h-20 max-w-[1400px] items-center justify-between px-4 sm:px-6 gap-4">
           {/* Esquerda: Logo */}
           <Link
@@ -120,7 +121,7 @@ export function Navbar() {
       </div>
 
       {/* Nível 2: Base (Navegação Desktop) */}
-      <div className="hidden md:block bg-background dark:border-white border-b border-black">
+      <div className="hidden md:block  dark:border-white border-b border-black">
         <div className="mx-auto flex max-w-[1400px] px-6 justify-center">
           <nav className="flex items-center">
             {navLinks.map((link) => {

@@ -1,5 +1,4 @@
 import { Mail, MapPin, Phone } from "lucide-react";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { SettingsService } from "@/lib/settings/services/settings-service";
 import Image from "next/image";
 

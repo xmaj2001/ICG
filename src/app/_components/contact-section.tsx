@@ -38,7 +38,7 @@ export async function ContactSection() {
             {/* <WhatsAppButton vehicle={vehicle} label="Falar no WhatsApp" /> */}
           </div>
         </div>
-        <div className="h-96 rounded-2xl">
+        <div className="hidden md:block h-96 rounded-2xl">
           <Image
             className="size-full object-contain rounded-2xl"
             src="/ICG-LOGO-black.png"

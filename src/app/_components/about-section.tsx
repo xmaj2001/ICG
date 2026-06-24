@@ -10,11 +10,12 @@ export function AboutSection() {
             Sobre nós
           </p>
           <h2 className="mt-2 text-4xl font-bold">
-            A International Car Group (ICG) é a sua parceira de confiança na
-            importação, exportação e comercialização de veículos premium e de
-            luxo, sediada em Castelo Branco, Portugal.
+            A International Car Group (ICG)
           </h2>
           <p className="mt-6 text-lg text-muted-foreground">
+            É a sua parceira de confiança na
+            importação, exportação e comercialização de veículos premium e de
+            luxo, sediada em Castelo Branco, Portugal.
             Especializamo-nos no fornecimento de automóveis de elevada qualidade
             para os mercados de Cabo Verde, Angola, Guiné-Bissau, São Tomé e
             Príncipe e Moçambique, assegurando um serviço completo, transparente

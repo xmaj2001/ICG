@@ -79,7 +79,7 @@ export function TestimonialsSection() {
         {testimonials.map((t) => (
           <div
             key={t.id}
-            className="group relative flex flex-col justify-between rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:border-gold/50 hover:shadow-lg hover:shadow-gold-soft"
+            className="group relative flex flex-col justify-between rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-primary-soft"
           >
             {/* Background Quote Icon for high-end look */}
             <div className="absolute right-6 top-6 text-foreground/5 opacity-10 transition-opacity group-hover:opacity-20">
@@ -92,14 +92,13 @@ export function TestimonialsSection() {
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
-                    className={`h-4.5 w-4.5 ${
-                      i < Math.floor(t.rating)
-                        ? "fill-gold text-gold"
+                    className={`h-4.5 w-4.5 ${i < Math.floor(t.rating)
+                        ? "fill-primary text-primary"
                         : "text-muted"
-                    }`}
+                      }`}
                   />
                 ))}
-                <span className="ml-1 text-xs font-semibold text-gold">
+                <span className="ml-1 text-xs font-semibold text-primary">
                   {t.rating.toFixed(1)}
                 </span>
               </div>
@@ -112,7 +111,7 @@ export function TestimonialsSection() {
 
             {/* Client Info Footer */}
             <div className="mt-8 flex items-center gap-4 border-t border-border/50 pt-5">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-gold/30 to-gold/5 font-semibold text-gold ring-1 ring-gold/20">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary/30 to-primary/5 font-semibold text-primary ring-1 ring-primary/20">
                 {t.initials}
               </div>
               <div>
@@ -120,7 +119,7 @@ export function TestimonialsSection() {
                 <p className="text-xs text-muted-foreground">
                   {t.location}
                 </p>
-                <p className="mt-0.5 text-[10px] uppercase tracking-wider font-semibold text-gold">
+                <p className="mt-0.5 text-[10px] uppercase tracking-wider font-semibold text-primary">
                   {t.vehicle}
                 </p>
               </div>

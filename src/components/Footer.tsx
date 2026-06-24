@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Phone, Mail } from "lucide-react";
+import { SettingsService } from "@/lib/settings/services/settings-service";
 
-export function Footer() {
+export async function Footer() {
+  const settings = await SettingsService.getSettings();
   return (
     <footer
       id="contacto"
@@ -118,18 +120,16 @@ export function Footer() {
             <li className="flex items-start gap-3">
               <MapPin className="w-5 h-5 text-primary shrink-0" />
               <span>
-                Av. Principal, Luanda
-                <br />
-                Angola
+                {settings?.address}
               </span>
             </li>
             <li className="flex items-center gap-3">
               <Phone className="w-5 h-5 text-primary shrink-0" />
-              <span>+244 923 456 789</span>
+              <span>{settings?.whatsappNumber}</span>
             </li>
             <li className="flex items-center gap-3">
               <Mail className="w-5 h-5 text-primary shrink-0" />
-              <span>contacto@icg.co.ao</span>
+              <span>{settings?.email}</span>
             </li>
           </ul>
         </div>

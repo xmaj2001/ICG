@@ -103,11 +103,10 @@ export function Navbar() {
                       <Link
                         key={link.href}
                         href={link.href}
-                        className={`px-4 py-3 rounded-md text-sm font-medium transition-colors ${
-                          isActive
-                            ? "bg-primary text-primary-foreground"
-                            : "hover:bg-accent hover:text-foreground"
-                        }`}
+                        className={`px-4 py-3 rounded-md text-sm font-medium transition-colors ${isActive
+                          ? "bg-primary text-primary-foreground"
+                          : "hover:bg-accent hover:text-foreground"
+                          }`}
                       >
                         {link.label}
                       </Link>
@@ -132,11 +131,10 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-6 py-3 text-sm font-bold tracking-wide transition-colors ${
-                    isActive
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:bg-accent hover:text-foreground"
-                  }`}
+                  className={`px-6 py-3 text-sm font-bold tracking-wide transition-colors ${isActive
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                    }`}
                 >
                   {link.label}
                 </Link>

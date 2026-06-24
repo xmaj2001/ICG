@@ -6,6 +6,7 @@ import { Navbar } from "@/components/Navbar";
 import { VehicleService } from "@/lib/vehicles/services/vehicle-service";
 import { HeroSection } from "./_components/hero-section";
 import { AboutSection } from "./_components/about-section";
+import { TestimonialsSection } from "./_components/testimonials-section";
 import { ContactSection } from "./_components/contact-section";
 import { VehicleCard } from "@/components/vehicles/VehicleCard";
 import { Badge } from "@/lib/vehicles/type";
@@ -87,6 +88,9 @@ export default async function Home() {
 
           {/* About */}
           <AboutSection />
+
+          {/* Testimonials */}
+          <TestimonialsSection />
 
           {/* Contact */}
           <ContactSection />

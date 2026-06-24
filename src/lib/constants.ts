@@ -1,4 +1,4 @@
-import { formatNumber, formatPrice } from "./utils";
+import { formatPrice } from "./utils";
 import type { Vehicle } from "./vehicles/type";
 
 // Configure your WhatsApp number (international format, no +)
@@ -11,7 +11,7 @@ export const buildWhatsAppUrl = (
   const number = dynamicNumber || WHATSAPP_NUMBER;
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
   const vehicleLink = `${baseUrl}/veiculo/${v.id}`;
-  const text = `Olá, tenho interesse no ${v.brand} ${v.model} ${v.year} por ${formatNumber(v.price)}. Ainda está disponível?\n\nVeja aqui: ${vehicleLink}`;
+  const text = `Olá, tenho interesse no ${v.brand} ${v.model} ${v.year} por ${formatPrice(v.price)}. Ainda está disponível?\n\nVeja aqui: ${vehicleLink}`;
   return `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
 };
 
